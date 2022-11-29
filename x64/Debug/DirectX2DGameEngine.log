@@ -1,0 +1,3 @@
+﻿  Program.cpp
+D:\Kwon's products\C++\DirectX2DGameEngine\Window.h(84,51): warning C4390: ';': 제어된 빈 문이 있습니다. 이 문이 필요합니까?
+  DirectX2DGameEngine.vcxproj -> D:\Kwon's products\C++\DirectX2DGameEngine\x64\Debug\DirectX2DGameEngine.exe
