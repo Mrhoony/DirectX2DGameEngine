@@ -22,6 +22,8 @@ private:
 	VertexColor* vertices = nullptr;
 	ID3D11Buffer* vertex_buffer = nullptr;
 	ID3D11InputLayout* input_layout = nullptr;
+	uint* indices = nullptr;
+	ID3D11Buffer* index_buffer = nullptr;
 
 	// VS
 	ID3D11VertexShader* vertex_shader = nullptr;
