@@ -16,13 +16,13 @@ Execute::Execute()
 	{
 		vertices = new VertexColor[3];
 		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);
-		vertices[0].color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		vertices[0].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
 
 		vertices[1].position = D3DXVECTOR3(+0.5f, +0.5f, 0.0f);
-		vertices[1].color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		vertices[1].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
 
 		vertices[2].position = D3DXVECTOR3(+0.5f, -0.5f, 0.0f);
-		vertices[2].color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		vertices[2].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
 	}
 
 	// Vertex Buffer
