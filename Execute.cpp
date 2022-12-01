@@ -167,7 +167,7 @@ void Execute::Render()
 		graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
 
 		// Draw Call
-		graphics->GetDeviceContext()->Draw(6, 0);
+		graphics->GetDeviceContext()->Draw(3, 3);
 	}
 	graphics->End();
 }
