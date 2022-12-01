@@ -14,15 +14,25 @@ Execute::Execute()
 
 	// Vertex Data
 	{
-		vertices = new VertexColor[3];
+		vertices = new VertexColor[6];
+
 		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);
 		vertices[0].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
 
-		vertices[1].position = D3DXVECTOR3(+0.5f, +0.5f, 0.0f);
+		vertices[1].position = D3DXVECTOR3(-0.5f, +0.5f, 0.0f);
 		vertices[1].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
 
 		vertices[2].position = D3DXVECTOR3(+0.5f, -0.5f, 0.0f);
 		vertices[2].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
+
+		vertices[3].position = D3DXVECTOR3(+0.5f, -0.5f, 0.0f);
+		vertices[3].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
+
+		vertices[4].position = D3DXVECTOR3(-0.5f, +0.5f, 0.0f);
+		vertices[4].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
+
+		vertices[5].position = D3DXVECTOR3(+0.5f, +0.5f, 0.0f);
+		vertices[5].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
 	}
 
 	// Vertex Buffer
@@ -32,7 +42,7 @@ Execute::Execute()
 
 		desc.Usage = D3D11_USAGE_IMMUTABLE;
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		desc.ByteWidth = sizeof(VertexColor) * 3;
+		desc.ByteWidth = sizeof(VertexColor) * 6;
 		
 		D3D11_SUBRESOURCE_DATA sub_data;
 		ZeroMemory(&sub_data, sizeof(D3D11_SUBRESOURCE_DATA));
@@ -157,7 +167,7 @@ void Execute::Render()
 		graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
 
 		// Draw Call
-		graphics->GetDeviceContext()->Draw(3, 0);
+		graphics->GetDeviceContext()->Draw(6, 0);
 	}
 	graphics->End();
 }
