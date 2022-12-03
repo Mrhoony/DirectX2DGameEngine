@@ -203,7 +203,7 @@ Execute::Execute()
 		D3D11_RASTERIZER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
 
-		desc.FillMode = D3D11_FILL_SOLID;
+		desc.FillMode = D3D11_FILL_WIREFRAME;
 		desc.CullMode = D3D11_CULL_BACK;
 		desc.FrontCounterClockwise = false;
 
