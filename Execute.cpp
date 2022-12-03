@@ -179,7 +179,10 @@ Execute::Execute()
 		std::cout << T._31 << " " << T._32 << " " << T._33 << " " << T._34 << std::endl;
 		std::cout << T._41 << " " << T._42 << " " << T._43 << " " << T._44 << std::endl;
 
-		world = S * T;
+		D3DXMATRIX R;
+		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(45)));
+
+		world = S * T * R;
 	}
 
 	//Create Constant Buffer
@@ -219,6 +222,11 @@ Execute::~Execute()
 
 void Execute::Update()
 {
+	D3DXMATRIX P;
+	D3DXMatrixRotationZ(&P, static_cast<float>(D3DXToRadian(45)));
+
+	world = world * P;
+
 	D3DXMatrixTranspose(&cpu_buffer.world, &world);
 	D3DXMatrixTranspose(&cpu_buffer.view, &view);
 	D3DXMatrixTranspose(&cpu_buffer.projection, &projection);
