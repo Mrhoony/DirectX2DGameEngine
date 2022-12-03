@@ -210,6 +210,9 @@ void Execute::Update()
 	world._11 = 50;
 	world._22 = 50;
 
+	world._41 = 100;
+	world._42 = 100;
+
 	cpu_buffer.world = world;
 	cpu_buffer.view = view;
 	cpu_buffer.projection = projection;
