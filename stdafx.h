@@ -1,11 +1,16 @@
 #pragma once
 
+#ifdef _DEBUG
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+#endif
+
 // Window
 #include <Windows.h>
 #include <assert.h>
 
 // STL
 #include <vector>
+#include <iostream>
 
 // DirectX
 #include <d3dcompiler.h>

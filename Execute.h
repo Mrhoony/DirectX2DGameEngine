@@ -6,6 +6,13 @@ struct VertexColor
 	D3DXCOLOR color;
 };
 
+struct TRANSFORM_DATA
+{
+	D3DXMATRIX world;
+	D3DXMATRIX view;
+	D3DXMATRIX projection;
+};
+
 class Execute
 {
 public:
@@ -32,5 +39,12 @@ private:
 	// PS
 	ID3D11PixelShader* pixel_shader = nullptr;
 	ID3DBlob* ps_blob = nullptr;
+
+	TRANSFORM_DATA cpu_buffer;
+	ID3D11Buffer* gpu_buffer = nullptr;
+
+	D3DXMATRIX world;
+	D3DXMATRIX view;
+	D3DXMATRIX projection;
 };
 

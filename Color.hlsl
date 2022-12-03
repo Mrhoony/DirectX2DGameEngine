@@ -10,12 +10,22 @@ struct PixelInput
 	float4 color : COLOR0;
 };
 
+cbuffer TransformBuffer : register(b0)
+{
+	matrix world;
+	matrix view;
+	matrix proj;
+}
+
 // VS
 PixelInput VS(VertexInput input)
 {
 	PixelInput output;
 
-	output.position = input.position;
+	output.position = mul(input.position, world);
+	output.position = mul(output.position, view);
+	output.position = mul(output.position, proj);
+
 	output.color = input.color;
 
 	return output;

@@ -139,10 +139,55 @@ Execute::Execute()
 			&pixel_shader
 		);
 	}
+
+	// Create World View Projection
+	{
+		D3DXMatrixIdentity(&world);
+		D3DXMatrixIdentity(&view);
+		D3DXMatrixIdentity(&projection);
+
+		D3DXVECTOR3 eye(0, 0, 0);
+		D3DXVECTOR3 at(0, 0, 1);
+		D3DXVECTOR3 up(0, 1, 0);
+		D3DXMatrixLookAtLH(&view, &eye, &at, &up);
+
+		D3DXMatrixOrthoLH(&projection, Settings::Get().GetWidth(), Settings::Get().GetHeight(), 0, 1);
+
+		std::cout << "View Matrix" << std::endl;
+		std::cout << view._11 << " " << view._12 << " " << view._13 << " " << view._14 << std::endl;
+		std::cout << view._21 << " " << view._22 << " " << view._23 << " " << view._24 << std::endl;
+		std::cout << view._31 << " " << view._32 << " " << view._33 << " " << view._34 << std::endl;
+		std::cout << view._41 << " " << view._42 << " " << view._43 << " " << view._44 << std::endl;
+
+		std::cout << std::endl;
+
+		std::cout << "Projection Matrix" << std::endl;
+		std::cout << projection._11 << " " << projection._12 << " " << projection._13 << " " << projection._14 << std::endl;
+		std::cout << projection._21 << " " << projection._22 << " " << projection._23 << " " << projection._24 << std::endl;
+		std::cout << projection._31 << " " << projection._32 << " " << projection._33 << " " << projection._34 << std::endl;
+		std::cout << projection._41 << " " << projection._42 << " " << projection._43 << " " << projection._44 << std::endl;
+
+		std::cout << std::endl;
+	}
+
+	//Create Constant Buffer
+	{
+		D3D11_BUFFER_DESC desc;
+		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
+		desc.Usage = D3D11_USAGE_DYNAMIC;
+		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		desc.ByteWidth = sizeof(TRANSFORM_DATA);
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+		HRESULT hr = graphics->GetDevice()->CreateBuffer(&desc, nullptr, &gpu_buffer);
+		assert(SUCCEEDED(hr));
+	}
 }
 
 Execute::~Execute()
 {
+	SAFE_RELEASE(gpu_buffer);
+
 	SAFE_RELEASE(pixel_shader);
 	SAFE_RELEASE(ps_blob);
 
@@ -162,6 +207,24 @@ Execute::~Execute()
 
 void Execute::Update()
 {
+	D3D11_MAPPED_SUBRESOURCE mapped_subresource;
+
+	cpu_buffer.world = world;
+	cpu_buffer.view = view;
+	cpu_buffer.projection = projection;
+
+	graphics->GetDeviceContext()->Map
+	(
+		gpu_buffer,
+		0,
+		D3D11_MAP_WRITE_DISCARD,
+		0,
+		&mapped_subresource
+	);
+
+	memcpy(mapped_subresource.pData, &cpu_buffer, sizeof(TRANSFORM_DATA));
+
+	graphics->GetDeviceContext()->Unmap(gpu_buffer, 0);
 }
 
 void Execute::Render()
@@ -182,6 +245,7 @@ void Execute::Render()
 
 		// VS
 		graphics->GetDeviceContext()->VSSetShader(vertex_shader, nullptr, 0);
+		graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, &gpu_buffer);
 
 		// PS
 		graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
