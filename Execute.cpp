@@ -161,13 +161,25 @@ Execute::Execute()
 
 		std::cout << std::endl;
 
-		std::cout << "Projection Matrix" << std::endl;
-		std::cout << projection._11 << " " << projection._12 << " " << projection._13 << " " << projection._14 << std::endl;
-		std::cout << projection._21 << " " << projection._22 << " " << projection._23 << " " << projection._24 << std::endl;
-		std::cout << projection._31 << " " << projection._32 << " " << projection._33 << " " << projection._34 << std::endl;
-		std::cout << projection._41 << " " << projection._42 << " " << projection._43 << " " << projection._44 << std::endl;
+		D3DXMATRIX S;
+		D3DXMatrixScaling(&S, 100, 100, 1);
 
-		std::cout << std::endl;
+		std::cout << "Scale Matrix" << std::endl;
+		std::cout << S._11 << " " << S._12 << " " << S._13 << " " << S._14 << std::endl;
+		std::cout << S._21 << " " << S._22 << " " << S._23 << " " << S._24 << std::endl;
+		std::cout << S._31 << " " << S._32 << " " << S._33 << " " << S._34 << std::endl;
+		std::cout << S._41 << " " << S._42 << " " << S._43 << " " << S._44 << std::endl;
+
+		D3DXMATRIX T;
+		D3DXMatrixTranslation(&T, 100, 100, 0);
+
+		std::cout << "Translation Matrix" << std::endl;
+		std::cout << T._11 << " " << T._12 << " " << T._13 << " " << T._14 << std::endl;
+		std::cout << T._21 << " " << T._22 << " " << T._23 << " " << T._24 << std::endl;
+		std::cout << T._31 << " " << T._32 << " " << T._33 << " " << T._34 << std::endl;
+		std::cout << T._41 << " " << T._42 << " " << T._43 << " " << T._44 << std::endl;
+
+		world = S * T;
 	}
 
 	//Create Constant Buffer
@@ -207,12 +219,6 @@ Execute::~Execute()
 
 void Execute::Update()
 {
-	world._11 = 50;
-	world._22 = 50;
-
-	world._41 = 100;
-	world._42 = 100;
-
 	D3DXMatrixTranspose(&cpu_buffer.world, &world);
 	D3DXMatrixTranspose(&cpu_buffer.view, &view);
 	D3DXMatrixTranspose(&cpu_buffer.projection, &projection);
