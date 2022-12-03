@@ -12,9 +12,9 @@ struct PixelInput
 
 cbuffer TransformBuffer : register(b0)
 {
-	matrix world;
-	matrix view;
-	matrix proj;
+	row_major matrix world;
+	row_major matrix view;
+	row_major matrix proj;
 }
 
 // VS
