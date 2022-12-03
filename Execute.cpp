@@ -207,11 +207,14 @@ Execute::~Execute()
 
 void Execute::Update()
 {
-	D3D11_MAPPED_SUBRESOURCE mapped_subresource;
+	world._11 = 50;
+	world._22 = 50;
 
 	cpu_buffer.world = world;
 	cpu_buffer.view = view;
 	cpu_buffer.projection = projection;
+
+	D3D11_MAPPED_SUBRESOURCE mapped_subresource;
 
 	graphics->GetDeviceContext()->Map
 	(
