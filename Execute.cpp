@@ -182,7 +182,7 @@ Execute::Execute()
 		D3DXMATRIX R;
 		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(45)));
 
-		world = S * T * R;
+		world = S * T;
 	}
 
 	//Create Constant Buffer
@@ -197,10 +197,24 @@ Execute::Execute()
 		HRESULT hr = graphics->GetDevice()->CreateBuffer(&desc, nullptr, &gpu_buffer);
 		assert(SUCCEEDED(hr));
 	}
+
+	// Create Rasterizer State
+	{
+		D3D11_RASTERIZER_DESC desc;
+		ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
+
+		desc.FillMode = D3D11_FILL_SOLID;
+		desc.CullMode = D3D11_CULL_BACK;
+		desc.FrontCounterClockwise = false;
+
+		HRESULT hr = graphics->GetDevice()->CreateRasterizerState(&desc, &rasterizer_state);
+		assert(SUCCEEDED(hr));
+	}
 }
 
 Execute::~Execute()
 {
+	SAFE_RELEASE(rasterizer_state);
 	SAFE_RELEASE(gpu_buffer);
 
 	SAFE_RELEASE(pixel_shader);
@@ -222,11 +236,6 @@ Execute::~Execute()
 
 void Execute::Update()
 {
-	D3DXMATRIX P;
-	D3DXMatrixRotationZ(&P, static_cast<float>(D3DXToRadian(45)));
-
-	world = world * P;
-
 	D3DXMatrixTranspose(&cpu_buffer.world, &world);
 	D3DXMatrixTranspose(&cpu_buffer.view, &view);
 	D3DXMatrixTranspose(&cpu_buffer.projection, &projection);
@@ -266,6 +275,9 @@ void Execute::Render()
 		// VS
 		graphics->GetDeviceContext()->VSSetShader(vertex_shader, nullptr, 0);
 		graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, &gpu_buffer);
+
+		// RS
+		graphics->GetDeviceContext()->RSSetState(rasterizer_state);
 
 		// PS
 		graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
