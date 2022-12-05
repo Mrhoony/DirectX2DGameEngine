@@ -14,19 +14,19 @@ Execute::Execute()
 
 	// Vertex Data
 	{
-		vertices = new VertexColor[4];
+		vertices = new VertexTexture[4];
 
 		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);
-		vertices[0].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[0].uv = D3DXVECTOR2(0.0f, 1.0f);
 
 		vertices[1].position = D3DXVECTOR3(-0.5f, +0.5f, 0.0f);
-		vertices[1].color = D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f);
+		vertices[1].uv = D3DXVECTOR2(0.0f, 0.0f);
 
 		vertices[2].position = D3DXVECTOR3(+0.5f, -0.5f, 0.0f);
-		vertices[2].color = D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f);
+		vertices[2].uv = D3DXVECTOR2(1.0f, 1.0f);
 
 		vertices[3].position = D3DXVECTOR3(+0.5f, +0.5f, 0.0f);
-		vertices[3].color = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[3].uv = D3DXVECTOR2(1.0f, 0.0f);
 	}
 
 	// Vertex Buffer
@@ -36,7 +36,7 @@ Execute::Execute()
 
 		desc.Usage = D3D11_USAGE_IMMUTABLE;
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		desc.ByteWidth = sizeof(VertexColor) * 4;
+		desc.ByteWidth = sizeof(VertexTexture) * 4;
 		
 		D3D11_SUBRESOURCE_DATA sub_data;
 		ZeroMemory(&sub_data, sizeof(D3D11_SUBRESOURCE_DATA));
@@ -71,7 +71,7 @@ Execute::Execute()
 	{
 		HRESULT hr = D3DX11CompileFromFileA
 		(
-			"Color.hlsl",
+			"Texture.hlsl",
 			nullptr,
 			nullptr,
 			"VS",
@@ -96,10 +96,16 @@ Execute::Execute()
 
 	// InputLayout
 	{
+		//D3D11_INPUT_ELEMENT_DESC layout_desc[]
+		//{
+		//	{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		//	{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		//};
+
 		D3D11_INPUT_ELEMENT_DESC layout_desc[]
 		{
 			{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-			{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+			{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		};
 
 		HRESULT hr = graphics->GetDevice()->CreateInputLayout
@@ -117,7 +123,7 @@ Execute::Execute()
 	{
 		HRESULT hr = D3DX11CompileFromFileA
 		(
-			"Color.hlsl",
+			"Texture.hlsl",
 			nullptr,
 			nullptr,
 			"PS",
@@ -203,17 +209,32 @@ Execute::Execute()
 		D3D11_RASTERIZER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
 
-		desc.FillMode = D3D11_FILL_WIREFRAME;
+		desc.FillMode = D3D11_FILL_SOLID;
 		desc.CullMode = D3D11_CULL_BACK;
 		desc.FrontCounterClockwise = false;
 
 		HRESULT hr = graphics->GetDevice()->CreateRasterizerState(&desc, &rasterizer_state);
 		assert(SUCCEEDED(hr));
 	}
+
+	// Create Shader Resource View
+	{
+		HRESULT hr = D3DX11CreateShaderResourceViewFromFileA
+		(
+			graphics->GetDevice(),
+			"pikachu.png",
+			nullptr,
+			nullptr,
+			&shader_resource,
+			nullptr
+		);
+		assert(SUCCEEDED(hr));
+	}
 }
 
 Execute::~Execute()
 {
+	SAFE_RELEASE(shader_resource);
 	SAFE_RELEASE(rasterizer_state);
 	SAFE_RELEASE(gpu_buffer);
 
@@ -258,7 +279,7 @@ void Execute::Update()
 
 void Execute::Render()
 {
-	uint stride = sizeof(VertexColor);
+	uint stride = sizeof(VertexTexture);
 	uint offset = 0;
 
 	graphics->Begin();
@@ -281,6 +302,7 @@ void Execute::Render()
 
 		// PS
 		graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
+		graphics->GetDeviceContext()->PSSetShaderResources(0, 1, &shader_resource);
 
 		// Draw Call
 		graphics->GetDeviceContext()->DrawIndexed(6, 0, 0);

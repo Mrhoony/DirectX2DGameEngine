@@ -6,6 +6,12 @@ struct VertexColor
 	D3DXCOLOR color;
 };
 
+struct VertexTexture
+{
+	D3DXVECTOR3 position;
+	D3DXVECTOR2 uv;
+};
+
 struct TRANSFORM_DATA
 {
 	D3DXMATRIX world;
@@ -26,7 +32,7 @@ private:
 	class Graphics* graphics = nullptr;
 
 	// IA
-	VertexColor* vertices = nullptr;
+	VertexTexture* vertices = nullptr;
 	ID3D11Buffer* vertex_buffer = nullptr;
 	ID3D11InputLayout* input_layout = nullptr;
 	uint* indices = nullptr;
@@ -49,5 +55,7 @@ private:
 	D3DXMATRIX world;
 	D3DXMATRIX view;
 	D3DXMATRIX projection;
+
+	ID3D11ShaderResourceView* shader_resource = nullptr;
 };
 
