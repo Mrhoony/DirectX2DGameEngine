@@ -37,7 +37,9 @@ SamplerState samp : register(s0);
 float4 PS(PixelInput input) : SV_Target
 {
 	float4 color = source_texture.Sample(samp, input.uv);
-	clip(color.a - 0.9f);
+	
+	//clip(color.a - 0.9f);
+	if (color.a < 0.1f) discard;
 
 	return source_texture.Sample(samp, input.uv);
 }
