@@ -168,7 +168,7 @@ Execute::Execute()
 		std::cout << std::endl;
 
 		D3DXMATRIX S;
-		D3DXMatrixScaling(&S, 100, 100, 1);
+		D3DXMatrixScaling(&S, 500, 500, 1);
 
 		std::cout << "Scale Matrix" << std::endl;
 		std::cout << S._11 << " " << S._12 << " " << S._13 << " " << S._14 << std::endl;
@@ -177,7 +177,7 @@ Execute::Execute()
 		std::cout << S._41 << " " << S._42 << " " << S._43 << " " << S._44 << std::endl;
 
 		D3DXMATRIX T;
-		D3DXMatrixTranslation(&T, 100, 100, 0);
+		D3DXMatrixTranslation(&T, 0, 0, 0);
 
 		std::cout << "Translation Matrix" << std::endl;
 		std::cout << T._11 << " " << T._12 << " " << T._13 << " " << T._14 << std::endl;
