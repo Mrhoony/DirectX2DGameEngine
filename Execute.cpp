@@ -17,16 +17,16 @@ Execute::Execute()
 		vertices = new VertexTexture[4];
 
 		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);
-		vertices[0].uv = D3DXVECTOR2(0.0f, 1.0f);
+		vertices[0].uv = D3DXVECTOR2(0.0f, 2.0f);
 
 		vertices[1].position = D3DXVECTOR3(-0.5f, +0.5f, 0.0f);
 		vertices[1].uv = D3DXVECTOR2(0.0f, 0.0f);
 
 		vertices[2].position = D3DXVECTOR3(+0.5f, -0.5f, 0.0f);
-		vertices[2].uv = D3DXVECTOR2(1.0f, 1.0f);
+		vertices[2].uv = D3DXVECTOR2(2.0f, 2.0f);
 
 		vertices[3].position = D3DXVECTOR3(+0.5f, +0.5f, 0.0f);
-		vertices[3].uv = D3DXVECTOR2(1.0f, 0.0f);
+		vertices[3].uv = D3DXVECTOR2(2.0f, 0.0f);
 	}
 
 	// Vertex Buffer
@@ -225,7 +225,38 @@ Execute::Execute()
 			"pikachu.png",
 			nullptr,
 			nullptr,
-			&shader_resource,
+			&shader_resource[0],
+			nullptr
+		);
+		assert(SUCCEEDED(hr));
+
+		hr = D3DX11CreateShaderResourceViewFromFileA
+		(
+			graphics->GetDevice(),
+			"fi.png",
+			nullptr,
+			nullptr,
+			&shader_resource[1],
+			nullptr
+		);
+		assert(SUCCEEDED(hr));
+		hr = D3DX11CreateShaderResourceViewFromFileA
+		(
+			graphics->GetDevice(),
+			"kobuk.png",
+			nullptr,
+			nullptr,
+			&shader_resource[2],
+			nullptr
+		);
+		assert(SUCCEEDED(hr));
+		hr = D3DX11CreateShaderResourceViewFromFileA
+		(
+			graphics->GetDevice(),
+			"cii.png",
+			nullptr,
+			nullptr,
+			&shader_resource[3],
 			nullptr
 		);
 		assert(SUCCEEDED(hr));
@@ -234,7 +265,10 @@ Execute::Execute()
 
 Execute::~Execute()
 {
-	SAFE_RELEASE(shader_resource);
+	SAFE_RELEASE(shader_resource[3]);
+	SAFE_RELEASE(shader_resource[2]);
+	SAFE_RELEASE(shader_resource[1]);
+	SAFE_RELEASE(shader_resource[0]);
 	SAFE_RELEASE(rasterizer_state);
 	SAFE_RELEASE(gpu_buffer);
 
@@ -302,7 +336,7 @@ void Execute::Render()
 
 		// PS
 		graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
-		graphics->GetDeviceContext()->PSSetShaderResources(0, 1, &shader_resource);
+		graphics->GetDeviceContext()->PSSetShaderResources(0, 4, shader_resource);
 
 		// Draw Call
 		graphics->GetDeviceContext()->DrawIndexed(6, 0, 0);

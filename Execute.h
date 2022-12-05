@@ -56,6 +56,6 @@ private:
 	D3DXMATRIX view;
 	D3DXMATRIX projection;
 
-	ID3D11ShaderResourceView* shader_resource = nullptr;
+	ID3D11ShaderResourceView* shader_resource[4];
 };
 
