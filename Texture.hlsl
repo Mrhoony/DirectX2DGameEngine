@@ -31,24 +31,12 @@ PixelInput VS(VertexInput input)
 	return output;
 }
 
-Texture2D source_texture1 : register(t0);
-Texture2D source_texture2 : register(t1);
-Texture2D source_texture3 : register(t2);
-Texture2D source_texture4 : register(t3);
+Texture2D source_texture0 : register(t0);
 SamplerState samp : register(s0);
 
 float4 PS(PixelInput input) : SV_Target
 {
-	float4 color = 0.0f;
-	
-	if (input.uv.x < 1.0f && input.uv.y < 1.0f)
-		color = source_texture1.Sample(samp, input.uv);
-	else if (input.uv.x >= 1.0f && input.uv.y < 1.0f)
-		color = source_texture2.Sample(samp, float2(input.uv.x - 1.0f, input.uv.y));
-	else if (input.uv.x < 1.0f && input.uv.y >= 1.0f)
-		color = source_texture3.Sample(samp, float2(input.uv.x, input.uv.y - 1.0f));
-	else if (input.uv.x >= 1.0f && input.uv.y >= 1.0f)
-		color = source_texture4.Sample(samp, float2(input.uv.x - 1.0f, input.uv.y - 1.0f));
+	float4 color = source_texture0.Sample(samp, input.uv);
 
 	return color;
 }

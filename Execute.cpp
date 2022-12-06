@@ -225,39 +225,38 @@ Execute::Execute()
 			"pikachu.png",
 			nullptr,
 			nullptr,
-			&shader_resource[0],
+			&shader_resource,
 			nullptr
 		);
 		assert(SUCCEEDED(hr));
+	}
 
-		hr = D3DX11CreateShaderResourceViewFromFileA
+	// Create Sampler State
+	{
+		D3D11_SAMPLER_DESC desc;
+		ZeroMemory(&desc, sizeof(D3D11_SAMPLER_DESC));
+
+		desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+
+		desc.BorderColor[0] = 1;
+		desc.BorderColor[1] = 0;
+		desc.BorderColor[2] = 0;
+		desc.BorderColor[3] = 1;
+
+		desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		desc.MaxAnisotropy = 16;
+		desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+
+		desc.MinLOD = std::numeric_limits<float>::min();
+		desc.MaxLOD = std::numeric_limits<float>::max();
+
+		desc.MipLODBias = 0.0f;
+		HRESULT hr = graphics->GetDevice()->CreateSamplerState
 		(
-			graphics->GetDevice(),
-			"fi.png",
-			nullptr,
-			nullptr,
-			&shader_resource[1],
-			nullptr
-		);
-		assert(SUCCEEDED(hr));
-		hr = D3DX11CreateShaderResourceViewFromFileA
-		(
-			graphics->GetDevice(),
-			"kobuk.png",
-			nullptr,
-			nullptr,
-			&shader_resource[2],
-			nullptr
-		);
-		assert(SUCCEEDED(hr));
-		hr = D3DX11CreateShaderResourceViewFromFileA
-		(
-			graphics->GetDevice(),
-			"cii.png",
-			nullptr,
-			nullptr,
-			&shader_resource[3],
-			nullptr
+			&desc,
+			&sampler_state
 		);
 		assert(SUCCEEDED(hr));
 	}
@@ -265,10 +264,8 @@ Execute::Execute()
 
 Execute::~Execute()
 {
-	SAFE_RELEASE(shader_resource[3]);
-	SAFE_RELEASE(shader_resource[2]);
-	SAFE_RELEASE(shader_resource[1]);
-	SAFE_RELEASE(shader_resource[0]);
+	SAFE_RELEASE(sampler_state);
+	SAFE_RELEASE(shader_resource);
 	SAFE_RELEASE(rasterizer_state);
 	SAFE_RELEASE(gpu_buffer);
 
@@ -336,7 +333,8 @@ void Execute::Render()
 
 		// PS
 		graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
-		graphics->GetDeviceContext()->PSSetShaderResources(0, 4, shader_resource);
+		graphics->GetDeviceContext()->PSSetShaderResources(0, 1, &shader_resource);
+		graphics->GetDeviceContext()->PSSetSamplers(0, 1, &sampler_state);
 
 		// Draw Call
 		graphics->GetDeviceContext()->DrawIndexed(6, 0, 0);
