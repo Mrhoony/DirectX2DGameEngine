@@ -59,5 +59,8 @@ private:
 	ID3D11ShaderResourceView* shader_resource = nullptr;
 
 	ID3D11SamplerState* sampler_state = nullptr;
+
+	// OM
+	ID3D11BlendState* blend_state = nullptr;
 };
 
