@@ -6,11 +6,15 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Execute.h" />
+    <ClInclude Include="Vertex\Vertex.h" />
+    <ClInclude Include="Vertex\Geometry.h" />
+    <ClInclude Include="Vertex\Geometry.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Execute.cpp" />
+    <ClCompile Include="Vertex\Vertex.cpp" />
   </ItemGroup>
 </Project>

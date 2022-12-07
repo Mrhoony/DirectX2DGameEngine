@@ -1,17 +1,5 @@
 #pragma once
 
-struct VertexColor
-{
-	D3DXVECTOR3 position;
-	D3DXCOLOR color;
-};
-
-struct VertexTexture
-{
-	D3DXVECTOR3 position;
-	D3DXVECTOR2 uv;
-};
-
 struct TRANSFORM_DATA
 {
 	D3DXMATRIX world;
@@ -32,10 +20,9 @@ private:
 	class Graphics* graphics = nullptr;
 
 	// IA
-	VertexTexture* vertices = nullptr;
+	Geometry<VertexTexture> geometry;
 	ID3D11Buffer* vertex_buffer = nullptr;
 	ID3D11InputLayout* input_layout = nullptr;
-	uint* indices = nullptr;
 	ID3D11Buffer* index_buffer = nullptr;
 
 	// VS

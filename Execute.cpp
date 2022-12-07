@@ -14,20 +14,17 @@ Execute::Execute()
 
 	// Vertex Data
 	{
-		vertices = new VertexTexture[4];
+		geometry.AddVertex(VertexTexture(D3DXVECTOR3(-0.5f, -0.5f, 0.0f), D3DXVECTOR2(0.0f, 1.0f)));
+		geometry.AddVertex(VertexTexture(D3DXVECTOR3(-0.5f, +0.5f, 0.0f), D3DXVECTOR2(0.0f, 0.0f)));
+		geometry.AddVertex(VertexTexture(D3DXVECTOR3(+0.5f, -0.5f, 0.0f), D3DXVECTOR2(1.0f, 1.0f)));
+		geometry.AddVertex(VertexTexture(D3DXVECTOR3(+0.5f, +0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.0f)));
+	}	
 
-		vertices[0].position = D3DXVECTOR3(-0.5f, -0.5f, 0.0f);
-		vertices[0].uv = D3DXVECTOR2(0.0f, 1.0f);
-
-		vertices[1].position = D3DXVECTOR3(-0.5f, +0.5f, 0.0f);
-		vertices[1].uv = D3DXVECTOR2(0.0f, 0.0f);
-
-		vertices[2].position = D3DXVECTOR3(+0.5f, -0.5f, 0.0f);
-		vertices[2].uv = D3DXVECTOR2(1.0f, 1.0f);
-
-		vertices[3].position = D3DXVECTOR3(+0.5f, +0.5f, 0.0f);
-		vertices[3].uv = D3DXVECTOR2(1.0f, 0.0f);
-	}
+	// Index Data
+	{
+		geometry.AddIndex(0); geometry.AddIndex(1); geometry.AddIndex(2);
+		geometry.AddIndex(2); geometry.AddIndex(1); geometry.AddIndex(3);
+	}	
 
 	// Vertex Buffer
 	{
@@ -36,19 +33,14 @@ Execute::Execute()
 
 		desc.Usage = D3D11_USAGE_IMMUTABLE;
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		desc.ByteWidth = sizeof(VertexTexture) * 4;
+		desc.ByteWidth = geometry.GetVertexByteWidth();
 		
 		D3D11_SUBRESOURCE_DATA sub_data;
 		ZeroMemory(&sub_data, sizeof(D3D11_SUBRESOURCE_DATA));
-		sub_data.pSysMem = vertices;
+		sub_data.pSysMem = geometry.GetVertexPointer();
 
 		HRESULT hr = graphics->GetDevice()->CreateBuffer(&desc, &sub_data, &vertex_buffer);
 		assert(SUCCEEDED(hr));
-	}
-
-	// Index Data
-	{
-		indices = new uint[6]{ 0,1,2,2,1,3 };
 	}
 
 	// Index Buffer
@@ -57,11 +49,11 @@ Execute::Execute()
 		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
 		desc.Usage = D3D11_USAGE_IMMUTABLE;
 		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-		desc.ByteWidth = sizeof(uint) * 6;
+		desc.ByteWidth = geometry.GetIndexByteWidth();
 
 		D3D11_SUBRESOURCE_DATA sub_data;
 		ZeroMemory(&sub_data, sizeof(D3D11_SUBRESOURCE_DATA));
-		sub_data.pSysMem = indices;
+		sub_data.pSysMem = geometry.GetIndexPointer();
 		
 		HRESULT hr = graphics->GetDevice()->CreateBuffer(&desc, &sub_data, &index_buffer);
 		assert(SUCCEEDED(hr));
@@ -96,22 +88,10 @@ Execute::Execute()
 
 	// InputLayout
 	{
-		//D3D11_INPUT_ELEMENT_DESC layout_desc[]
-		//{
-		//	{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		//	{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		//};
-
-		D3D11_INPUT_ELEMENT_DESC layout_desc[]
-		{
-			{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-			{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		};
-
 		HRESULT hr = graphics->GetDevice()->CreateInputLayout
 		(
-			layout_desc,
-			2,
+			VertexTexture::descs,
+			VertexTexture::count,
 			vs_blob->GetBufferPointer(),
 			vs_blob->GetBufferSize(),
 			&input_layout
@@ -302,11 +282,9 @@ Execute::~Execute()
 	SAFE_RELEASE(vertex_shader);
 	SAFE_RELEASE(vs_blob);
 
-	SAFE_DELETE(indices);
 	SAFE_RELEASE(index_buffer);
 
 	SAFE_RELEASE(vertex_buffer);
-	SAFE_DELETE_ARRAY(vertices);
 
 	SAFE_DELETE(graphics);
 }
@@ -363,7 +341,7 @@ void Execute::Render()
 
 		// OM
 		graphics->GetDeviceContext()->OMSetBlendState(blend_state, nullptr, 0xffffffff);
-		
+
 		// Draw Call
 		graphics->GetDeviceContext()->DrawIndexed(6, 0, 0);
 	}

@@ -1,2 +1,11 @@
-﻿  Execute.cpp
+﻿  stdafx.cpp
+  Execute.cpp
+  Graphics.cpp
+D:\Kwon's products\C++\DirectX2DGameEngine\Graphics.cpp(54,2): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Program.cpp
+D:\Kwon's products\C++\DirectX2DGameEngine\Window.h(84,51): warning C4390: ';': 제어된 빈 문이 있습니다. 이 문이 필요합니까?
+D:\Kwon's products\C++\DirectX2DGameEngine\Program.cpp(17,43): warning C4244: '인수': 'UINT'에서 'const float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Kwon's products\C++\DirectX2DGameEngine\Program.cpp(18,45): warning C4244: '인수': 'UINT'에서 'const float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Vertex.cpp
+  코드를 생성하고 있습니다...
   DirectX2DGameEngine.vcxproj -> D:\Kwon's products\C++\DirectX2DGameEngine\x64\Debug\DirectX2DGameEngine.exe
