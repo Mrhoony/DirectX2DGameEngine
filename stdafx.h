@@ -49,3 +49,4 @@ typedef unsigned int uint;
 
 #include "InputAssembler/D3D11_VertexBuffer.h" // 버텍스 버퍼 관리
 #include "InputAssembler/D3D11_IndexBuffer.h" // 인덱스 버퍼 관리
+#include "InputAssembler/D3D11_InputLayout.h" // 인풋 레이아웃 관리

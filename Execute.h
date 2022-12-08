@@ -22,7 +22,7 @@ private:
 	// IA
 	D3D11_Geometry<D3D11_VertexTexture> geometry;
 	D3D11_VertexBuffer* vertex_buffer = nullptr;
-	ID3D11InputLayout* input_layout = nullptr;
+	D3D11_InputLayout* input_layout = nullptr;
 	D3D11_IndexBuffer* index_buffer = nullptr;
 
 	// VS

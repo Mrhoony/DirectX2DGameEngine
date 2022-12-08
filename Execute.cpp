@@ -67,15 +67,8 @@ Execute::Execute()
 
 	// InputLayout
 	{
-		HRESULT hr = graphics->GetDevice()->CreateInputLayout
-		(
-			D3D11_VertexTexture::descs,
-			D3D11_VertexTexture::count,
-			vs_blob->GetBufferPointer(),
-			vs_blob->GetBufferSize(),
-			&input_layout
-		);
-		assert(SUCCEEDED(hr));
+		input_layout = new D3D11_InputLayout(graphics);
+		input_layout->Create(D3D11_VertexTexture::descs, D3D11_VertexTexture::count, vs_blob);
 	}
 
 	// Pixel Shader
@@ -256,7 +249,7 @@ Execute::~Execute()
 	SAFE_RELEASE(pixel_shader);
 	SAFE_RELEASE(ps_blob);
 
-	SAFE_RELEASE(input_layout);
+	SAFE_DELETE(input_layout);
 
 	SAFE_RELEASE(vertex_shader);
 	SAFE_RELEASE(vs_blob);
@@ -300,7 +293,7 @@ void Execute::Render()
 		};
 		graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, buffers, &vertex_buffer->GetStride(), &vertex_buffer->GetOffset());
 		graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		graphics->GetDeviceContext()->IASetInputLayout(input_layout);
+		graphics->GetDeviceContext()->IASetInputLayout(input_layout->GetResource());
 		graphics->GetDeviceContext()->IASetIndexBuffer(index_buffer->GetResource(), DXGI_FORMAT_R32_UINT, index_buffer->GetOffset());
 
 		// VS

@@ -1,4 +1,5 @@
 ﻿  stdafx.cpp
+  D3D11_InputLayout.cpp
   D3D11_IndexBuffer.cpp
   D3D11_VertexBuffer.cpp
   Execute.cpp
