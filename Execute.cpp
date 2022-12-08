@@ -14,10 +14,10 @@ Execute::Execute()
 
 	// Vertex Data
 	{
-		geometry.AddVertex(VertexTexture(D3DXVECTOR3(-0.5f, -0.5f, 0.0f), D3DXVECTOR2(0.0f, 1.0f)));
-		geometry.AddVertex(VertexTexture(D3DXVECTOR3(-0.5f, +0.5f, 0.0f), D3DXVECTOR2(0.0f, 0.0f)));
-		geometry.AddVertex(VertexTexture(D3DXVECTOR3(+0.5f, -0.5f, 0.0f), D3DXVECTOR2(1.0f, 1.0f)));
-		geometry.AddVertex(VertexTexture(D3DXVECTOR3(+0.5f, +0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.0f)));
+		geometry.AddVertex(D3D11_VertexTexture(D3DXVECTOR3(-0.5f, -0.5f, 0.0f), D3DXVECTOR2(0.0f, 1.0f)));
+		geometry.AddVertex(D3D11_VertexTexture(D3DXVECTOR3(-0.5f, +0.5f, 0.0f), D3DXVECTOR2(0.0f, 0.0f)));
+		geometry.AddVertex(D3D11_VertexTexture(D3DXVECTOR3(+0.5f, -0.5f, 0.0f), D3DXVECTOR2(1.0f, 1.0f)));
+		geometry.AddVertex(D3D11_VertexTexture(D3DXVECTOR3(+0.5f, +0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.0f)));
 	}	
 
 	// Index Data
@@ -28,19 +28,8 @@ Execute::Execute()
 
 	// Vertex Buffer
 	{
-		D3D11_BUFFER_DESC desc;
-		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
-
-		desc.Usage = D3D11_USAGE_IMMUTABLE;
-		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		desc.ByteWidth = geometry.GetVertexByteWidth();
-		
-		D3D11_SUBRESOURCE_DATA sub_data;
-		ZeroMemory(&sub_data, sizeof(D3D11_SUBRESOURCE_DATA));
-		sub_data.pSysMem = geometry.GetVertexPointer();
-
-		HRESULT hr = graphics->GetDevice()->CreateBuffer(&desc, &sub_data, &vertex_buffer);
-		assert(SUCCEEDED(hr));
+		vertex_buffer = new D3D11_VertexBuffer(graphics);
+		vertex_buffer->Create(geometry.GetVertices());
 	}
 
 	// Index Buffer
@@ -90,8 +79,8 @@ Execute::Execute()
 	{
 		HRESULT hr = graphics->GetDevice()->CreateInputLayout
 		(
-			VertexTexture::descs,
-			VertexTexture::count,
+			D3D11_VertexTexture::descs,
+			D3D11_VertexTexture::count,
 			vs_blob->GetBufferPointer(),
 			vs_blob->GetBufferSize(),
 			&input_layout
@@ -284,7 +273,7 @@ Execute::~Execute()
 
 	SAFE_RELEASE(index_buffer);
 
-	SAFE_RELEASE(vertex_buffer);
+	SAFE_DELETE(vertex_buffer);
 
 	SAFE_DELETE(graphics);
 }
@@ -313,16 +302,13 @@ void Execute::Update()
 
 void Execute::Render()
 {
-	uint stride = sizeof(VertexTexture);
-	uint offset = 0;
-
 	graphics->Begin();
 	{
 		// IA
 		ID3D11Buffer* buffers[] = {
-			vertex_buffer
+			vertex_buffer->GetResource()
 		};
-		graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, buffers, &stride, &offset);
+		graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, buffers, &vertex_buffer->GetStride(), &vertex_buffer->GetOffset());
 		graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		graphics->GetDeviceContext()->IASetInputLayout(input_layout);
 		graphics->GetDeviceContext()->IASetIndexBuffer(index_buffer, DXGI_FORMAT_R32_UINT, 0);

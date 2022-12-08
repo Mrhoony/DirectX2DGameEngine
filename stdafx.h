@@ -41,6 +41,10 @@ typedef unsigned int uint;
 	Window.h			// 윈도우 생성
 */
 #include "Settings.h"	// DX <-> 윈도우
+#include "Graphics.h"
 //#include "Execute.h"	// 렌더링 파이프라인
-#include "Vertex/Vertex.h"	// 버텍스 데이터 설정 관리
-#include "Vertex/Geometry.h" // 지오메트리(버텍스 & 인덱스) 데이터 관리
+
+#include "Vertex/D3D11_Vertex.h"	// 버텍스 데이터 설정 관리
+#include "Vertex/D3D11_Geometry.h" // 지오메트리(버텍스 & 인덱스) 데이터 관리
+
+#include "InputAssembler/D3D11_VertexBuffer.h" // 버텍스 버퍼 관리

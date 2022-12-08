@@ -6,15 +6,17 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Execute.h" />
-    <ClInclude Include="Vertex\Vertex.h" />
-    <ClInclude Include="Vertex\Geometry.h" />
-    <ClInclude Include="Vertex\Geometry.inl" />
+    <ClInclude Include="Vertex\D3D11_Vertex.h" />
+    <ClInclude Include="Vertex\D3D11_Geometry.h" />
+    <ClInclude Include="Vertex\D3D11_Geometry.inl" />
+    <ClInclude Include="InputAssembler\D3D11_VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Execute.cpp" />
-    <ClCompile Include="Vertex\Vertex.cpp" />
+    <ClCompile Include="Vertex\D3D11_Vertex.cpp" />
+    <ClCompile Include="InputAssembler\D3D11_VertexBuffer.cpp" />
   </ItemGroup>
 </Project>
