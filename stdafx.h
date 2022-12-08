@@ -48,3 +48,4 @@ typedef unsigned int uint;
 #include "Vertex/D3D11_Geometry.h" // 지오메트리(버텍스 & 인덱스) 데이터 관리
 
 #include "InputAssembler/D3D11_VertexBuffer.h" // 버텍스 버퍼 관리
+#include "InputAssembler/D3D11_IndexBuffer.h" // 인덱스 버퍼 관리

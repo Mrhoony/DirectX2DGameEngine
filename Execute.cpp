@@ -34,18 +34,8 @@ Execute::Execute()
 
 	// Index Buffer
 	{
-		D3D11_BUFFER_DESC desc;
-		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
-		desc.Usage = D3D11_USAGE_IMMUTABLE;
-		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-		desc.ByteWidth = geometry.GetIndexByteWidth();
-
-		D3D11_SUBRESOURCE_DATA sub_data;
-		ZeroMemory(&sub_data, sizeof(D3D11_SUBRESOURCE_DATA));
-		sub_data.pSysMem = geometry.GetIndexPointer();
-		
-		HRESULT hr = graphics->GetDevice()->CreateBuffer(&desc, &sub_data, &index_buffer);
-		assert(SUCCEEDED(hr));
+		index_buffer = new D3D11_IndexBuffer(graphics);
+		index_buffer->Create(geometry.GetIndices());
 	}
 
 	// Vertex Shader
@@ -271,7 +261,7 @@ Execute::~Execute()
 	SAFE_RELEASE(vertex_shader);
 	SAFE_RELEASE(vs_blob);
 
-	SAFE_RELEASE(index_buffer);
+	SAFE_DELETE(index_buffer);
 
 	SAFE_DELETE(vertex_buffer);
 
@@ -311,7 +301,7 @@ void Execute::Render()
 		graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, buffers, &vertex_buffer->GetStride(), &vertex_buffer->GetOffset());
 		graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		graphics->GetDeviceContext()->IASetInputLayout(input_layout);
-		graphics->GetDeviceContext()->IASetIndexBuffer(index_buffer, DXGI_FORMAT_R32_UINT, 0);
+		graphics->GetDeviceContext()->IASetIndexBuffer(index_buffer->GetResource(), DXGI_FORMAT_R32_UINT, index_buffer->GetOffset());
 
 		// VS
 		graphics->GetDeviceContext()->VSSetShader(vertex_shader, nullptr, 0);

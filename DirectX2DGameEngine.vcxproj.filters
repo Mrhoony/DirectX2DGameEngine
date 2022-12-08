@@ -10,6 +10,7 @@
     <ClInclude Include="Vertex\D3D11_Geometry.h" />
     <ClInclude Include="Vertex\D3D11_Geometry.inl" />
     <ClInclude Include="InputAssembler\D3D11_VertexBuffer.h" />
+    <ClInclude Include="InputAssembler\D3D11_IndexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -18,5 +19,6 @@
     <ClCompile Include="Execute.cpp" />
     <ClCompile Include="Vertex\D3D11_Vertex.cpp" />
     <ClCompile Include="InputAssembler\D3D11_VertexBuffer.cpp" />
+    <ClCompile Include="InputAssembler\D3D11_IndexBuffer.cpp" />
   </ItemGroup>
 </Project>

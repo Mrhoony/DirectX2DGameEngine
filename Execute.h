@@ -23,7 +23,7 @@ private:
 	D3D11_Geometry<D3D11_VertexTexture> geometry;
 	D3D11_VertexBuffer* vertex_buffer = nullptr;
 	ID3D11InputLayout* input_layout = nullptr;
-	ID3D11Buffer* index_buffer = nullptr;
+	D3D11_IndexBuffer* index_buffer = nullptr;
 
 	// VS
 	ID3D11VertexShader* vertex_shader = nullptr;
