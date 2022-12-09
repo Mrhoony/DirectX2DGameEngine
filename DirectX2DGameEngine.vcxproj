@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Shader\D3D11_Shader.h" />
     <ClInclude Include="InputAssembler\D3D11_InputLayout.h" />
     <ClInclude Include="InputAssembler\D3D11_IndexBuffer.h" />
     <ClInclude Include="InputAssembler\D3D11_VertexBuffer.h" />
@@ -31,6 +32,7 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Shader\D3D11_Shader.cpp" />
     <ClCompile Include="InputAssembler\D3D11_InputLayout.cpp" />
     <ClCompile Include="InputAssembler\D3D11_IndexBuffer.cpp" />
     <ClCompile Include="InputAssembler\D3D11_VertexBuffer.cpp" />

@@ -18,7 +18,7 @@ Execute::Execute()
 		geometry.AddVertex(D3D11_VertexTexture(D3DXVECTOR3(-0.5f, +0.5f, 0.0f), D3DXVECTOR2(0.0f, 0.0f)));
 		geometry.AddVertex(D3D11_VertexTexture(D3DXVECTOR3(+0.5f, -0.5f, 0.0f), D3DXVECTOR2(1.0f, 1.0f)));
 		geometry.AddVertex(D3D11_VertexTexture(D3DXVECTOR3(+0.5f, +0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.0f)));
-	}	
+	}
 
 	// Index Data
 	{
@@ -40,62 +40,20 @@ Execute::Execute()
 
 	// Vertex Shader
 	{
-		HRESULT hr = D3DX11CompileFromFileA
-		(
-			"Texture.hlsl",
-			nullptr,
-			nullptr,
-			"VS",
-			"vs_5_0",
-			0,
-			0,
-			nullptr,
-			&vs_blob,
-			nullptr,
-			nullptr
-		);
-		assert(SUCCEEDED(hr));
+		vertex_shader = new D3D11_Shader(graphics);
+		vertex_shader->Create(ShaderScope_VS, "Texture.hlsl");
+	}
 
-		hr = graphics->GetDevice()->CreateVertexShader
-		(
-			vs_blob->GetBufferPointer(),
-			vs_blob->GetBufferSize(),
-			nullptr,
-			&vertex_shader
-		);
+	// Pixel Shader
+	{
+		pixel_shader = new D3D11_Shader(graphics);
+		pixel_shader->Create(ShaderScope_PS, "Texture.hlsl");
 	}
 
 	// InputLayout
 	{
 		input_layout = new D3D11_InputLayout(graphics);
-		input_layout->Create(D3D11_VertexTexture::descs, D3D11_VertexTexture::count, vs_blob);
-	}
-
-	// Pixel Shader
-	{
-		HRESULT hr = D3DX11CompileFromFileA
-		(
-			"Texture.hlsl",
-			nullptr,
-			nullptr,
-			"PS",
-			"ps_5_0",
-			0,
-			0,
-			nullptr,
-			&ps_blob,
-			nullptr,
-			nullptr
-		);
-		assert(SUCCEEDED(hr));
-
-		hr = graphics->GetDevice()->CreatePixelShader
-		(
-			ps_blob->GetBufferPointer(),
-			ps_blob->GetBufferSize(),
-			nullptr,
-			&pixel_shader
-		);
+		input_layout->Create(D3D11_VertexTexture::descs, D3D11_VertexTexture::count, vertex_shader->GetShaderBlob());
 	}
 
 	// Create World View Projection
@@ -246,13 +204,11 @@ Execute::~Execute()
 	SAFE_RELEASE(rasterizer_state);
 	SAFE_RELEASE(gpu_buffer);
 
-	SAFE_RELEASE(pixel_shader);
-	SAFE_RELEASE(ps_blob);
+	SAFE_DELETE(pixel_shader);
 
 	SAFE_DELETE(input_layout);
 
-	SAFE_RELEASE(vertex_shader);
-	SAFE_RELEASE(vs_blob);
+	SAFE_DELETE(vertex_shader);
 
 	SAFE_DELETE(index_buffer);
 
@@ -297,14 +253,14 @@ void Execute::Render()
 		graphics->GetDeviceContext()->IASetIndexBuffer(index_buffer->GetResource(), DXGI_FORMAT_R32_UINT, index_buffer->GetOffset());
 
 		// VS
-		graphics->GetDeviceContext()->VSSetShader(vertex_shader, nullptr, 0);
+		graphics->GetDeviceContext()->VSSetShader(static_cast<ID3D11VertexShader*>(vertex_shader->GetResource()), nullptr, 0);
 		graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, &gpu_buffer);
 
 		// RS
 		graphics->GetDeviceContext()->RSSetState(rasterizer_state);
 
 		// PS
-		graphics->GetDeviceContext()->PSSetShader(pixel_shader, nullptr, 0);
+		graphics->GetDeviceContext()->PSSetShader(static_cast<ID3D11PixelShader*>(pixel_shader->GetResource()), nullptr, 0);
 		graphics->GetDeviceContext()->PSSetShaderResources(0, 1, &shader_resource);
 		graphics->GetDeviceContext()->PSSetSamplers(0, 1, &sampler_state);
 

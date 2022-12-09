@@ -26,15 +26,13 @@ private:
 	D3D11_IndexBuffer* index_buffer = nullptr;
 
 	// VS
-	ID3D11VertexShader* vertex_shader = nullptr;
-	ID3DBlob* vs_blob = nullptr;
+	D3D11_Shader* vertex_shader = nullptr;
 
 	// RS
 	ID3D11RasterizerState* rasterizer_state = nullptr;
 
 	// PS
-	ID3D11PixelShader* pixel_shader = nullptr;
-	ID3DBlob* ps_blob = nullptr;
+	D3D11_Shader* pixel_shader = nullptr;
 
 	TRANSFORM_DATA cpu_buffer;
 	ID3D11Buffer* gpu_buffer = nullptr;
