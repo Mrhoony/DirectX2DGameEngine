@@ -109,15 +109,8 @@ Execute::Execute()
 
 	// Create Rasterizer State
 	{
-		D3D11_RASTERIZER_DESC desc;
-		ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
-
-		desc.FillMode = D3D11_FILL_SOLID;
-		desc.CullMode = D3D11_CULL_BACK;
-		desc.FrontCounterClockwise = false;
-
-		HRESULT hr = graphics->GetDevice()->CreateRasterizerState(&desc, &rasterizer_state);
-		assert(SUCCEEDED(hr));
+		rasterizer_state = new D3D11_RasterizerState(graphics);
+		rasterizer_state->Create(D3D11_CULL_BACK, D3D11_FILL_SOLID);
 	}
 
 	// Create Shader Resource View
@@ -194,7 +187,7 @@ Execute::~Execute()
 	SAFE_RELEASE(blend_state);
 	SAFE_RELEASE(sampler_state);
 	SAFE_RELEASE(shader_resource);
-	SAFE_RELEASE(rasterizer_state);
+	SAFE_DELETE(rasterizer_state);
 	SAFE_DELETE(gpu_buffer);
 	SAFE_DELETE(pixel_shader);
 	SAFE_DELETE(input_layout);
@@ -235,7 +228,7 @@ void Execute::Render()
 		graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, cpu_buffers);
 
 		// RS
-		graphics->GetDeviceContext()->RSSetState(rasterizer_state);
+		graphics->GetDeviceContext()->RSSetState(rasterizer_state->GetResource());
 
 		// PS
 		graphics->GetDeviceContext()->PSSetShader(static_cast<ID3D11PixelShader*>(pixel_shader->GetResource()), nullptr, 0);

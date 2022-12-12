@@ -50,5 +50,8 @@ typedef unsigned int uint;
 #include "InputAssembler/D3D11_VertexBuffer.h"	// 버텍스 버퍼 관리
 #include "InputAssembler/D3D11_IndexBuffer.h"	// 인덱스 버퍼 관리
 #include "InputAssembler/D3D11_InputLayout.h"	// 인풋 레이아웃 관리
+
 #include "Shader/D3D11_Shader.h"				// VS, PS 관리
 #include "Shader/D3D11_ConstantBuffer.h"		// 리소스버퍼 관리
+
+#include "Rasterizer/D3D11_RasterizerState.h"	// RS 관리
