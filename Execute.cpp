@@ -113,18 +113,10 @@ Execute::Execute()
 		rasterizer_state->Create(D3D11_CULL_BACK, D3D11_FILL_SOLID);
 	}
 
-	// Create Shader Resource View
+	// Create Texture (Shader Resource View)
 	{
-		HRESULT hr = D3DX11CreateShaderResourceViewFromFileA
-		(
-			graphics->GetDevice(),
-			"pikachu.png",
-			nullptr,
-			nullptr,
-			&shader_resource,
-			nullptr
-		);
-		assert(SUCCEEDED(hr));
+		texture = new D3D11_Texture(graphics);
+		texture->Create("pikachu.png");
 	}
 
 	// Create Sampler State
@@ -186,7 +178,7 @@ Execute::~Execute()
 {
 	SAFE_RELEASE(blend_state);
 	SAFE_RELEASE(sampler_state);
-	SAFE_RELEASE(shader_resource);
+	SAFE_DELETE(texture);
 	SAFE_DELETE(rasterizer_state);
 	SAFE_DELETE(gpu_buffer);
 	SAFE_DELETE(pixel_shader);
@@ -213,9 +205,7 @@ void Execute::Render()
 	graphics->Begin();
 	{
 		// IA
-		ID3D11Buffer* buffers[] = {
-			vertex_buffer->GetResource()
-		};
+		ID3D11Buffer* buffers[] = { vertex_buffer->GetResource() };
 		graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, buffers, &vertex_buffer->GetStride(), &vertex_buffer->GetOffset());
 		graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		graphics->GetDeviceContext()->IASetInputLayout(input_layout->GetResource());
@@ -232,7 +222,8 @@ void Execute::Render()
 
 		// PS
 		graphics->GetDeviceContext()->PSSetShader(static_cast<ID3D11PixelShader*>(pixel_shader->GetResource()), nullptr, 0);
-		graphics->GetDeviceContext()->PSSetShaderResources(0, 1, &shader_resource);
+		ID3D11ShaderResourceView* shader_resource[] = { texture->GetResource() };
+		graphics->GetDeviceContext()->PSSetShaderResources(0, 1, shader_resource);
 		graphics->GetDeviceContext()->PSSetSamplers(0, 1, &sampler_state);
 
 		// OM

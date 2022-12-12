@@ -34,14 +34,12 @@ private:
 	// PS
 	D3D11_Shader* pixel_shader = nullptr;
 
-	D3D11_ConstantBuffer* gpu_buffer = nullptr;
-
 	D3DXMATRIX world;
 	D3DXMATRIX view;
 	D3DXMATRIX projection;
 
-	ID3D11ShaderResourceView* shader_resource = nullptr;
-
+	D3D11_ConstantBuffer* gpu_buffer = nullptr;
+	D3D11_Texture* texture = nullptr;
 	ID3D11SamplerState* sampler_state = nullptr;
 
 	// OM
