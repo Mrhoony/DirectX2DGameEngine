@@ -34,8 +34,7 @@ private:
 	// PS
 	D3D11_Shader* pixel_shader = nullptr;
 
-	TRANSFORM_DATA cpu_buffer;
-	ID3D11Buffer* gpu_buffer = nullptr;
+	D3D11_ConstantBuffer* gpu_buffer = nullptr;
 
 	D3DXMATRIX world;
 	D3DXMATRIX view;

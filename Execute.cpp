@@ -103,15 +103,8 @@ Execute::Execute()
 
 	//Create Constant Buffer
 	{
-		D3D11_BUFFER_DESC desc;
-		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
-		desc.Usage = D3D11_USAGE_DYNAMIC;
-		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		desc.ByteWidth = sizeof(TRANSFORM_DATA);
-		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-		HRESULT hr = graphics->GetDevice()->CreateBuffer(&desc, nullptr, &gpu_buffer);
-		assert(SUCCEEDED(hr));
+		gpu_buffer = new D3D11_ConstantBuffer(graphics);
+		gpu_buffer->Create<TRANSFORM_DATA>();
 	}
 
 	// Create Rasterizer State
@@ -202,41 +195,24 @@ Execute::~Execute()
 	SAFE_RELEASE(sampler_state);
 	SAFE_RELEASE(shader_resource);
 	SAFE_RELEASE(rasterizer_state);
-	SAFE_RELEASE(gpu_buffer);
-
+	SAFE_DELETE(gpu_buffer);
 	SAFE_DELETE(pixel_shader);
-
 	SAFE_DELETE(input_layout);
-
 	SAFE_DELETE(vertex_shader);
-
 	SAFE_DELETE(index_buffer);
-
 	SAFE_DELETE(vertex_buffer);
-
 	SAFE_DELETE(graphics);
 }
 
 void Execute::Update()
 {
-	D3DXMatrixTranspose(&cpu_buffer.world, &world);
-	D3DXMatrixTranspose(&cpu_buffer.view, &view);
-	D3DXMatrixTranspose(&cpu_buffer.projection, &projection);
-
-	D3D11_MAPPED_SUBRESOURCE mapped_subresource;
-
-	graphics->GetDeviceContext()->Map
-	(
-		gpu_buffer,
-		0,
-		D3D11_MAP_WRITE_DISCARD,
-		0,
-		&mapped_subresource
-	);
-
-	memcpy(mapped_subresource.pData, &cpu_buffer, sizeof(TRANSFORM_DATA));
-
-	graphics->GetDeviceContext()->Unmap(gpu_buffer, 0);
+	TRANSFORM_DATA* buffer = gpu_buffer->Map<TRANSFORM_DATA>();
+	{
+		D3DXMatrixTranspose(&buffer->world, &world);
+		D3DXMatrixTranspose(&buffer->view, &view);
+		D3DXMatrixTranspose(&buffer->projection, &projection);
+	}
+	gpu_buffer->Unmap();
 }
 
 void Execute::Render()
@@ -254,7 +230,9 @@ void Execute::Render()
 
 		// VS
 		graphics->GetDeviceContext()->VSSetShader(static_cast<ID3D11VertexShader*>(vertex_shader->GetResource()), nullptr, 0);
-		graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, &gpu_buffer);
+		
+		ID3D11Buffer* cpu_buffers[] = { gpu_buffer->GetResource() };
+		graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, cpu_buffers);
 
 		// RS
 		graphics->GetDeviceContext()->RSSetState(rasterizer_state);

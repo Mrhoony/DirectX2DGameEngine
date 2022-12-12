@@ -13,6 +13,7 @@
     <ClInclude Include="InputAssembler\D3D11_IndexBuffer.h" />
     <ClInclude Include="InputAssembler\D3D11_InputLayout.h" />
     <ClInclude Include="Shader\D3D11_Shader.h" />
+    <ClInclude Include="Shader\D3D11_ConstantBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -24,5 +25,6 @@
     <ClCompile Include="InputAssembler\D3D11_IndexBuffer.cpp" />
     <ClCompile Include="InputAssembler\D3D11_InputLayout.cpp" />
     <ClCompile Include="Shader\D3D11_Shader.cpp" />
+    <ClCompile Include="Shader\D3D11_ConstantBuffer.cpp" />
   </ItemGroup>
 </Project>
