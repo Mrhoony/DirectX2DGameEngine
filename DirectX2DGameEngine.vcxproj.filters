@@ -15,6 +15,7 @@
     <ClInclude Include="Shader\D3D11_Shader.h" />
     <ClInclude Include="Shader\D3D11_ConstantBuffer.h" />
     <ClInclude Include="Rasterizer\D3D11_RasterizerState.h" />
+    <ClInclude Include="Rasterizer\D3D11_Viewport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -28,5 +29,6 @@
     <ClCompile Include="Shader\D3D11_Shader.cpp" />
     <ClCompile Include="Shader\D3D11_ConstantBuffer.cpp" />
     <ClCompile Include="Rasterizer\D3D11_RasterizerState.cpp" />
+    <ClCompile Include="Rasterizer\D3D11_Viewport.cpp" />
   </ItemGroup>
 </Project>

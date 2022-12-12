@@ -1,4 +1,6 @@
 #pragma once
+#include "Rasterizer/D3D11_Viewport.h"
+
 class Graphics final
 {
 public:
@@ -19,7 +21,6 @@ private:
 	ID3D11DeviceContext* device_context = nullptr;
 	IDXGISwapChain* swap_chain = nullptr;
 	ID3D11RenderTargetView* render_target_view = nullptr;
-	D3D11_VIEWPORT viewport = { 0 };
+	D3D11_Viewport viewport = D3D11_Viewport::Undefined_viewport;
 	D3DXCOLOR clear_color = 0xff555566;
 };
-

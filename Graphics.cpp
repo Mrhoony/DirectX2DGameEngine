@@ -84,12 +84,13 @@ void Graphics::CreateBackBuffer(const uint width, const uint height)
 	);
 	assert(SUCCEEDED(hr));
 
-	viewport.TopLeftX = 0.0f;
-	viewport.TopLeftY = 0.0f;
-	viewport.Width = static_cast<float>(width);
-	viewport.Height = static_cast<float>(height);
-	viewport.MinDepth = 0.0f;
-	viewport.MaxDepth = 1.0f;
+	viewport.x = 0.0f;
+	viewport.y = 0.0f;
+	viewport.width = static_cast<float>(width);
+	viewport.height = static_cast<float>(height);
+	viewport.min_depth = 0.0f;
+	viewport.max_depth = 1.0f;
+	viewport.Create();
 
 	SAFE_RELEASE(back_buffer);
 }
@@ -97,7 +98,7 @@ void Graphics::CreateBackBuffer(const uint width, const uint height)
 void Graphics::Begin()
 {
 	device_context->OMSetRenderTargets(1, &render_target_view, nullptr);
-	device_context->RSSetViewports(1, &viewport);
+	device_context->RSSetViewports(1, viewport.GetResource());
 	device_context->ClearRenderTargetView(render_target_view, clear_color);
 }
 
