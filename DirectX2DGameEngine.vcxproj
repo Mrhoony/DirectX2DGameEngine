@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scene\Camera.h" />
     <ClInclude Include="Core\D3D11\OutputMerger\D3D11_BlendState.h" />
     <ClInclude Include="Core\D3D11\Shader\D3D11_SamplerState.h" />
     <ClInclude Include="Core\D3D11\Shader\D3D11_Texture.h" />
@@ -38,6 +39,7 @@
     <ClInclude Include="Core\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scene\Camera.cpp" />
     <ClCompile Include="Core\D3D11\OutputMerger\D3D11_BlendState.cpp" />
     <ClCompile Include="Core\D3D11\Shader\D3D11_SamplerState.cpp" />
     <ClCompile Include="Core\D3D11\Shader\D3D11_Texture.cpp" />

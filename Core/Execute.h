@@ -28,15 +28,14 @@ private:
 	// VS
 	D3D11_Shader* vertex_shader = nullptr;
 
+	D3DXMATRIX world;
+	class Camera* camera = nullptr;
+
 	// RS
 	D3D11_RasterizerState* rasterizer_state = nullptr;
 
 	// PS
 	D3D11_Shader* pixel_shader = nullptr;
-
-	D3DXMATRIX world;
-	D3DXMATRIX view;
-	D3DXMATRIX projection;
 
 	D3D11_ConstantBuffer* gpu_buffer = nullptr;
 	D3D11_Texture* texture = nullptr;

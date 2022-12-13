@@ -2,6 +2,8 @@
 #include "Execute.h"
 #include "Graphics.h"
 
+#include "Scene/Camera.h"
+
 Execute::Execute()
 {
 	graphics = new Graphics();
@@ -56,44 +58,17 @@ Execute::Execute()
 		input_layout->Create(D3D11_VertexTexture::descs, D3D11_VertexTexture::count, vertex_shader->GetShaderBlob());
 	}
 
-	// Create World View Projection
+	// Create Camera
 	{
+		camera = new Camera();
+
 		D3DXMatrixIdentity(&world);
-		D3DXMatrixIdentity(&view);
-		D3DXMatrixIdentity(&projection);
-
-		D3DXVECTOR3 eye(0, 0, 0);
-		D3DXVECTOR3 at(0, 0, 1);
-		D3DXVECTOR3 up(0, 1, 0);
-		D3DXMatrixLookAtLH(&view, &eye, &at, &up);
-
-		D3DXMatrixOrthoLH(&projection, Settings::Get().GetWidth(), Settings::Get().GetHeight(), 0, 1);
-
-		std::cout << "View Matrix" << std::endl;
-		std::cout << view._11 << " " << view._12 << " " << view._13 << " " << view._14 << std::endl;
-		std::cout << view._21 << " " << view._22 << " " << view._23 << " " << view._24 << std::endl;
-		std::cout << view._31 << " " << view._32 << " " << view._33 << " " << view._34 << std::endl;
-		std::cout << view._41 << " " << view._42 << " " << view._43 << " " << view._44 << std::endl;
-
-		std::cout << std::endl;
 
 		D3DXMATRIX S;
 		D3DXMatrixScaling(&S, 500, 500, 1);
 
-		std::cout << "Scale Matrix" << std::endl;
-		std::cout << S._11 << " " << S._12 << " " << S._13 << " " << S._14 << std::endl;
-		std::cout << S._21 << " " << S._22 << " " << S._23 << " " << S._24 << std::endl;
-		std::cout << S._31 << " " << S._32 << " " << S._33 << " " << S._34 << std::endl;
-		std::cout << S._41 << " " << S._42 << " " << S._43 << " " << S._44 << std::endl;
-
 		D3DXMATRIX T;
 		D3DXMatrixTranslation(&T, 0, 0, 0);
-
-		std::cout << "Translation Matrix" << std::endl;
-		std::cout << T._11 << " " << T._12 << " " << T._13 << " " << T._14 << std::endl;
-		std::cout << T._21 << " " << T._22 << " " << T._23 << " " << T._24 << std::endl;
-		std::cout << T._31 << " " << T._32 << " " << T._33 << " " << T._34 << std::endl;
-		std::cout << T._41 << " " << T._42 << " " << T._43 << " " << T._44 << std::endl;
 
 		D3DXMATRIX R;
 		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(45)));
@@ -134,6 +109,7 @@ Execute::Execute()
 
 Execute::~Execute()
 {
+	SAFE_DELETE(camera);
 	SAFE_DELETE(blend_state);
 	SAFE_DELETE(sampler_state);
 	SAFE_DELETE(texture);
@@ -152,8 +128,8 @@ void Execute::Update()
 	TRANSFORM_DATA* buffer = gpu_buffer->Map<TRANSFORM_DATA>();
 	{
 		D3DXMatrixTranspose(&buffer->world, &world);
-		D3DXMatrixTranspose(&buffer->view, &view);
-		D3DXMatrixTranspose(&buffer->projection, &projection);
+		D3DXMatrixTranspose(&buffer->view, &camera->GetViewMatrix());
+		D3DXMatrixTranspose(&buffer->projection, &camera->GetProjectionMatrix());
 	}
 	gpu_buffer->Unmap();
 }

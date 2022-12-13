@@ -19,6 +19,7 @@
     <ClInclude Include="Core\D3D11\Shader\D3D11_Texture.h" />
     <ClInclude Include="Core\D3D11\Shader\D3D11_SamplerState.h" />
     <ClInclude Include="Core\D3D11\OutputMerger\D3D11_BlendState.h" />
+    <ClInclude Include="Scene\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -36,5 +37,6 @@
     <ClCompile Include="Core\D3D11\Shader\D3D11_Texture.cpp" />
     <ClCompile Include="Core\D3D11\Shader\D3D11_SamplerState.cpp" />
     <ClCompile Include="Core\D3D11\OutputMerger\D3D11_BlendState.cpp" />
+    <ClCompile Include="Scene\Camera.cpp" />
   </ItemGroup>
 </Project>
