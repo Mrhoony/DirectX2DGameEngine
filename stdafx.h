@@ -40,23 +40,23 @@ typedef unsigned int uint;
 	Graphics.h			// DX자원 관리
 	Window.h			// 윈도우 생성
 */
-#include "Settings.h"	// DX <-> 윈도우
-#include "Graphics.h"
+#include "Core/Settings.h"	// DX <-> 윈도우
+#include "Core/Graphics.h"
 //#include "Execute.h"	// 렌더링 파이프라인
 
-#include "Vertex/D3D11_Vertex.h"				// 버텍스 데이터 설정 관리
-#include "Vertex/D3D11_Geometry.h"				// 지오메트리(버텍스 & 인덱스) 데이터 관리
+#include "Core/D3D11/Vertex/D3D11_Vertex.h"				// 버텍스 데이터 설정 관리
+#include "Core/D3D11/Vertex/D3D11_Geometry.h"				// 지오메트리(버텍스 & 인덱스) 데이터 관리
 
-#include "InputAssembler/D3D11_VertexBuffer.h"	// 버텍스 버퍼 관리
-#include "InputAssembler/D3D11_IndexBuffer.h"	// 인덱스 버퍼 관리
-#include "InputAssembler/D3D11_InputLayout.h"	// 인풋 레이아웃 관리
+#include "Core/D3D11/InputAssembler/D3D11_VertexBuffer.h"	// 버텍스 버퍼 관리
+#include "Core/D3D11/InputAssembler/D3D11_IndexBuffer.h"	// 인덱스 버퍼 관리
+#include "Core/D3D11/InputAssembler/D3D11_InputLayout.h"	// 인풋 레이아웃 관리
 
-#include "Shader/D3D11_Shader.h"				// VS, PS 관리
-#include "Shader/D3D11_ConstantBuffer.h"		// 리소스버퍼 관리
-#include "Shader/D3D11_Texture.h"				// 텍스처(쉐이더리소스뷰) 관리
-#include "Shader/D3D11_SamplerState.h"			// 샘플러 스테이트 관리
+#include "Core/D3D11/Shader/D3D11_Shader.h"				// VS, PS 관리
+#include "Core/D3D11/Shader/D3D11_ConstantBuffer.h"		// 리소스버퍼 관리
+#include "Core/D3D11/Shader/D3D11_Texture.h"				// 텍스처(쉐이더리소스뷰) 관리
+#include "Core/D3D11/Shader/D3D11_SamplerState.h"			// 샘플러 스테이트 관리
 
-#include "Rasterizer/D3D11_RasterizerState.h"	// RS 관리
-#include "Rasterizer/D3D11_Viewport.h"			// 뷰포트 관리
+#include "Core/D3D11/Rasterizer/D3D11_RasterizerState.h"	// RS 관리
+#include "Core/D3D11/Rasterizer/D3D11_Viewport.h"			// 뷰포트 관리
 
-#include "OutputMerger/D3D11_BlendState.h"		// 블렌드 스테이트 관리
+#include "Core/D3D11/OutputMerger/D3D11_BlendState.h"		// 블렌드 스테이트 관리

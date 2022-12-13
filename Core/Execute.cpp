@@ -41,13 +41,13 @@ Execute::Execute()
 	// Vertex Shader
 	{
 		vertex_shader = new D3D11_Shader(graphics);
-		vertex_shader->Create(ShaderScope_VS, "Texture.hlsl");
+		vertex_shader->Create(ShaderScope_VS, "Assets/Shaders/Texture.hlsl");
 	}
 
 	// Pixel Shader
 	{
 		pixel_shader = new D3D11_Shader(graphics);
-		pixel_shader->Create(ShaderScope_PS, "Texture.hlsl");
+		pixel_shader->Create(ShaderScope_PS, "Assets/Shaders/Texture.hlsl");
 	}
 
 	// InputLayout
@@ -116,7 +116,7 @@ Execute::Execute()
 	// Create Texture (Shader Resource View)
 	{
 		texture = new D3D11_Texture(graphics);
-		texture->Create("pikachu.png");
+		texture->Create("Assets/Textures/pikachu.png");
 	}
 
 	// Create Sampler State
