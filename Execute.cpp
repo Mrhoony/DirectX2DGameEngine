@@ -121,32 +121,8 @@ Execute::Execute()
 
 	// Create Sampler State
 	{
-		D3D11_SAMPLER_DESC desc;
-		ZeroMemory(&desc, sizeof(D3D11_SAMPLER_DESC));
-
-		desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-		desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-		desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-
-		desc.BorderColor[0] = 1;
-		desc.BorderColor[1] = 0;
-		desc.BorderColor[2] = 0;
-		desc.BorderColor[3] = 1;
-
-		desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-		desc.MaxAnisotropy = 16;
-		desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
-
-		desc.MinLOD = std::numeric_limits<float>::min();
-		desc.MaxLOD = std::numeric_limits<float>::max();
-
-		desc.MipLODBias = 0.0f;
-		HRESULT hr = graphics->GetDevice()->CreateSamplerState
-		(
-			&desc,
-			&sampler_state
-		);
-		assert(SUCCEEDED(hr));
+		sampler_state = new D3D11_SamplerState(graphics);
+		sampler_state->Create(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP);
 	}
 
 	// Create Blend State
@@ -177,7 +153,7 @@ Execute::Execute()
 Execute::~Execute()
 {
 	SAFE_RELEASE(blend_state);
-	SAFE_RELEASE(sampler_state);
+	SAFE_DELETE(sampler_state);
 	SAFE_DELETE(texture);
 	SAFE_DELETE(rasterizer_state);
 	SAFE_DELETE(gpu_buffer);
@@ -224,7 +200,8 @@ void Execute::Render()
 		graphics->GetDeviceContext()->PSSetShader(static_cast<ID3D11PixelShader*>(pixel_shader->GetResource()), nullptr, 0);
 		ID3D11ShaderResourceView* shader_resource[] = { texture->GetResource() };
 		graphics->GetDeviceContext()->PSSetShaderResources(0, 1, shader_resource);
-		graphics->GetDeviceContext()->PSSetSamplers(0, 1, &sampler_state);
+		ID3D11SamplerState* samplers[] = { sampler_state->GetResource() };
+		graphics->GetDeviceContext()->PSSetSamplers(0, 1, samplers);
 
 		// OM
 		graphics->GetDeviceContext()->OMSetBlendState(blend_state, nullptr, 0xffffffff);
