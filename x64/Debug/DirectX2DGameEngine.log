@@ -1,4 +1,5 @@
 ﻿  stdafx.cpp
+  D3D11_SamplerState.cpp
   D3D11_Texture.cpp
   D3D11_Viewport.cpp
   D3D11_RasterizerState.cpp
