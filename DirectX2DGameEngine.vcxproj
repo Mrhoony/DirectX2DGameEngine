@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="OutputMerger\D3D11_BlendState.h" />
     <ClInclude Include="Shader\D3D11_SamplerState.h" />
     <ClInclude Include="Shader\D3D11_Texture.h" />
     <ClInclude Include="Rasterizer\D3D11_Viewport.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="OutputMerger\D3D11_BlendState.cpp" />
     <ClCompile Include="Shader\D3D11_SamplerState.cpp" />
     <ClCompile Include="Shader\D3D11_Texture.cpp" />
     <ClCompile Include="Rasterizer\D3D11_Viewport.cpp" />

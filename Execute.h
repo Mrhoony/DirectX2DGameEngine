@@ -43,6 +43,6 @@ private:
 	D3D11_SamplerState* sampler_state = nullptr;
 
 	// OM
-	ID3D11BlendState* blend_state = nullptr;
+	D3D11_BlendState* blend_state = nullptr;
 };
 

@@ -127,32 +127,14 @@ Execute::Execute()
 
 	// Create Blend State
 	{
-		D3D11_BLEND_DESC desc;
-		ZeroMemory(&desc, sizeof(D3D11_BLEND_DESC));
-
-		desc.AlphaToCoverageEnable = false;
-		desc.IndependentBlendEnable = false;
-
-		desc.RenderTarget[0].BlendEnable = true;
-
-		desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-		desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-		desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-
-		desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-		desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-		desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-
-		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-
-		HRESULT hr = graphics->GetDevice()->CreateBlendState(&desc, &blend_state);
-		assert(SUCCEEDED(hr));
+		blend_state = new D3D11_BlendState(graphics);
+		blend_state->Create(true);
 	}
 }
 
 Execute::~Execute()
 {
-	SAFE_RELEASE(blend_state);
+	SAFE_DELETE(blend_state);
 	SAFE_DELETE(sampler_state);
 	SAFE_DELETE(texture);
 	SAFE_DELETE(rasterizer_state);
@@ -204,7 +186,9 @@ void Execute::Render()
 		graphics->GetDeviceContext()->PSSetSamplers(0, 1, samplers);
 
 		// OM
-		graphics->GetDeviceContext()->OMSetBlendState(blend_state, nullptr, 0xffffffff);
+		float factor = blend_state->GetBlendFactor();
+		float blend_factor[] = { factor, factor, factor, factor };
+		graphics->GetDeviceContext()->OMSetBlendState(blend_state->GetResource(), blend_factor, blend_state->GetSampleMask());
 
 		// Draw Call
 		graphics->GetDeviceContext()->DrawIndexed(6, 0, 0);

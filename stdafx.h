@@ -58,3 +58,5 @@ typedef unsigned int uint;
 
 #include "Rasterizer/D3D11_RasterizerState.h"	// RS 관리
 #include "Rasterizer/D3D11_Viewport.h"			// 뷰포트 관리
+
+#include "OutputMerger/D3D11_BlendState.h"		// 블렌드 스테이트 관리

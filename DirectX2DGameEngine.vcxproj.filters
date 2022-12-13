@@ -18,6 +18,7 @@
     <ClInclude Include="Rasterizer\D3D11_Viewport.h" />
     <ClInclude Include="Shader\D3D11_Texture.h" />
     <ClInclude Include="Shader\D3D11_SamplerState.h" />
+    <ClInclude Include="OutputMerger\D3D11_BlendState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -34,5 +35,6 @@
     <ClCompile Include="Rasterizer\D3D11_Viewport.cpp" />
     <ClCompile Include="Shader\D3D11_Texture.cpp" />
     <ClCompile Include="Shader\D3D11_SamplerState.cpp" />
+    <ClCompile Include="OutputMerger\D3D11_BlendState.cpp" />
   </ItemGroup>
 </Project>
