@@ -14,19 +14,9 @@ Execute::Execute()
 		static_cast<uint>(Settings::Get().GetHeight())
 	);
 
-	// Vertex Data
-	{
-		geometry.AddVertex(D3D11_VertexTexture(D3DXVECTOR3(-0.5f, -0.5f, 0.0f), D3DXVECTOR2(0.0f, 1.0f)));
-		geometry.AddVertex(D3D11_VertexTexture(D3DXVECTOR3(-0.5f, +0.5f, 0.0f), D3DXVECTOR2(0.0f, 0.0f)));
-		geometry.AddVertex(D3D11_VertexTexture(D3DXVECTOR3(+0.5f, -0.5f, 0.0f), D3DXVECTOR2(1.0f, 1.0f)));
-		geometry.AddVertex(D3D11_VertexTexture(D3DXVECTOR3(+0.5f, +0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.0f)));
-	}
-
-	// Index Data
-	{
-		geometry.AddIndex(0); geometry.AddIndex(1); geometry.AddIndex(2);
-		geometry.AddIndex(2); geometry.AddIndex(1); geometry.AddIndex(3);
-	}	
+	// Geometry
+	D3D11_Geometry<D3D11_VertexTexture> geometry;
+	Geometry_Generator::CreateQuad(geometry);
 
 	// Vertex Buffer
 	{

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Utility\Geometry_Generator.h" />
     <ClInclude Include="Scene\Camera.h" />
     <ClInclude Include="Core\D3D11\OutputMerger\D3D11_BlendState.h" />
     <ClInclude Include="Core\D3D11\Shader\D3D11_SamplerState.h" />
@@ -39,6 +40,7 @@
     <ClInclude Include="Core\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Utility\Geometry_Generator.cpp" />
     <ClCompile Include="Scene\Camera.cpp" />
     <ClCompile Include="Core\D3D11\OutputMerger\D3D11_BlendState.cpp" />
     <ClCompile Include="Core\D3D11\Shader\D3D11_SamplerState.cpp" />
