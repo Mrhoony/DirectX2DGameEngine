@@ -3,7 +3,7 @@
 #define NOMINMAX
 
 #ifdef _DEBUG
-//#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
 
 // Window
@@ -13,6 +13,8 @@
 // STL
 #include <vector>
 #include <iostream>
+#include <sstream>
+#include <unordered_map>
 
 // DirectX
 #include <d3dcompiler.h>
@@ -34,6 +36,10 @@ typedef unsigned int uint;
 #define SAFE_DELETE(p) {if(p) { delete (p); (p) = nullptr; }}
 #define SAFE_DELETE_ARRAY(p) {if(p) { delete[] (p); (p) = nullptr; }}
 
+// Utility
+#include "Utility/Geometry_Generator.h"		// 지오메트리 생성 관리
+#include "Utility/GUID_Generator.h"			// 자원 ID 생성 관리
+
 // Framework
 /*
 	Program.cpp				// 프로그램 시작점
@@ -41,6 +47,7 @@ typedef unsigned int uint;
 	Window.h				// 윈도우 생성
 */
 #include "Core/Settings.h"	// DX <-> 윈도우
+#include "Core/Object.h"	// 객체 원본
 #include "Core/Graphics.h"
 //#include "Execute.h"		// 렌더링 파이프라인
 
@@ -61,5 +68,3 @@ typedef unsigned int uint;
 
 #include "Core/D3D11/OutputMerger/D3D11_BlendState.h"		// 블렌드 스테이트 관리
 
-// Utility
-#include "Utility/Geometry_Generator.h"						// 지오메트리 생성 관리

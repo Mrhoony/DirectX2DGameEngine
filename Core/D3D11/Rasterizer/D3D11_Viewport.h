@@ -1,5 +1,5 @@
 #pragma once
-class D3D11_Viewport final
+class D3D11_Viewport final : public Object
 {
 public:
 	D3D11_Viewport

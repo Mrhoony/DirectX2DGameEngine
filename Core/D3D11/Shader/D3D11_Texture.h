@@ -1,5 +1,5 @@
 #pragma once
-class D3D11_Texture final
+class D3D11_Texture final : public Object
 {
 public:
 	D3D11_Texture(class Graphics* graphics);

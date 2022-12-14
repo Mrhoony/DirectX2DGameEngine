@@ -1,5 +1,5 @@
 #pragma once
-class D3D11_RasterizerState final
+class D3D11_RasterizerState final : public Object
 {
 public:
 	D3D11_RasterizerState(class Graphics* graphics);

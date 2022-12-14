@@ -1,5 +1,5 @@
 #pragma once
-class D3D11_InputLayout
+class D3D11_InputLayout : public Object
 {
 public:
 	D3D11_InputLayout(class Graphics* graphics);

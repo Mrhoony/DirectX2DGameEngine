@@ -1,5 +1,5 @@
 #pragma once
-class D3D11_IndexBuffer final
+class D3D11_IndexBuffer final : public Object
 {
 public:
 	D3D11_IndexBuffer(class Graphics* graphics);
