@@ -42,5 +42,7 @@ private:
 
 	// OM
 	D3D11_BlendState* blend_state = nullptr;
+
+	D3D11_Pipeline* pipeline = nullptr;
 };
 

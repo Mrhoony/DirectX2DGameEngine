@@ -95,10 +95,14 @@ Execute::Execute()
 		blend_state = new D3D11_BlendState(graphics);
 		blend_state->Create(true);
 	}
+
+	// Pipeline
+	pipeline = new D3D11_Pipeline(graphics);
 }
 
 Execute::~Execute()
 {
+	SAFE_DELETE(pipeline);
 	SAFE_DELETE(camera);
 	SAFE_DELETE(blend_state);
 	SAFE_DELETE(sampler_state);
@@ -128,36 +132,25 @@ void Execute::Render()
 {
 	graphics->Begin();
 	{
-		// IA
-		ID3D11Buffer* buffers[] = { vertex_buffer->GetResource() };
-		graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, buffers, &vertex_buffer->GetStride(), &vertex_buffer->GetOffset());
-		graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		graphics->GetDeviceContext()->IASetInputLayout(input_layout->GetResource());
-		graphics->GetDeviceContext()->IASetIndexBuffer(index_buffer->GetResource(), DXGI_FORMAT_R32_UINT, index_buffer->GetOffset());
+		D3D11_PipelineState pipeline_state;
+		pipeline_state.input_layout = input_layout;
+		pipeline_state.primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+		pipeline_state.vertex_shader = vertex_shader;
+		pipeline_state.pixel_shader = pixel_shader;
+		pipeline_state.rasterizer_state = rasterizer_state;
+		pipeline_state.blend_state = blend_state;
+		if (pipeline->Begin(pipeline_state))
+		{
+			pipeline->SetVertexBuffer(vertex_buffer);
+			pipeline->SetIndexBuffer(index_buffer);
+			pipeline->SetConstantBuffer(0, ShaderScope_VS, gpu_buffer);
+			pipeline->SetShaderResource(0, ShaderScope_PS, texture);
+			pipeline->SetSamplerState(0, ShaderScope_PS, sampler_state);
 
-		// VS
-		graphics->GetDeviceContext()->VSSetShader(static_cast<ID3D11VertexShader*>(vertex_shader->GetResource()), nullptr, 0);
-		
-		ID3D11Buffer* cpu_buffers[] = { gpu_buffer->GetResource() };
-		graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, cpu_buffers);
+			pipeline->DrawIndexed(index_buffer->GetCount(), index_buffer->GetOffset(), vertex_buffer->GetOffset());
 
-		// RS
-		graphics->GetDeviceContext()->RSSetState(rasterizer_state->GetResource());
-
-		// PS
-		graphics->GetDeviceContext()->PSSetShader(static_cast<ID3D11PixelShader*>(pixel_shader->GetResource()), nullptr, 0);
-		ID3D11ShaderResourceView* shader_resource[] = { texture->GetResource() };
-		graphics->GetDeviceContext()->PSSetShaderResources(0, 1, shader_resource);
-		ID3D11SamplerState* samplers[] = { sampler_state->GetResource() };
-		graphics->GetDeviceContext()->PSSetSamplers(0, 1, samplers);
-
-		// OM
-		float factor = blend_state->GetBlendFactor();
-		float blend_factor[] = { factor, factor, factor, factor };
-		graphics->GetDeviceContext()->OMSetBlendState(blend_state->GetResource(), blend_factor, blend_state->GetSampleMask());
-
-		// Draw Call
-		graphics->GetDeviceContext()->DrawIndexed(6, 0, 0);
+			pipeline->End();
+		}
 	}
 	graphics->End();
 }

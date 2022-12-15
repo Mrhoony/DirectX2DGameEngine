@@ -3,7 +3,7 @@
 #define NOMINMAX
 
 #ifdef _DEBUG
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+//#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
 
 // Window
@@ -68,3 +68,4 @@ typedef unsigned int uint;
 
 #include "Core/D3D11/OutputMerger/D3D11_BlendState.h"		// 블렌드 스테이트 관리
 
+#include "Core/D3D11/D3D11_Pipeline.h"						// 렌더링 파이프라인 관리

@@ -41,10 +41,16 @@ public:
 	void SetShaderResource(const uint& slot, const uint& scope, const D3D11_Texture* resource);
 	void SetSamplerState(const uint& slot, const uint& scope, const D3D11_SamplerState* state);
 
-	void Draw();
+	void Draw(const uint& vertex_count, const uint& vertex_offset);
 	void DrawIndexed(const uint& index_count, const uint& index_offset = 0, const uint& vertex_offset = 0);
 
 private:
 	ID3D11DeviceContext* device_context = nullptr;
-};
 
+	uint bind_vertex_buffer_id = 0;
+	uint bind_index_buffer_id = 0;
+	uint bind_inputlayout_id = 0;
+	uint bind_primitivetopology_id = 0;
+	uint bind_rasterizer_state_id = 0;
+	uint bind_blend_state_id = 0;
+};
