@@ -97,10 +97,13 @@ Rect::~Rect()
 
 void Rect::Update()
 {
-	if(GetAsyncKeyState('W') & 0x8000) position.y++;
-	else if(GetAsyncKeyState('A') & 0x8000) position.x--;
-	if(GetAsyncKeyState('S') & 0x8000) position.y--;
-	else if(GetAsyncKeyState('D') & 0x8000) position.x++;
+	if (is_player == true)
+	{
+		if (GetAsyncKeyState('W') & 0x8000) position.y++;
+		else if (GetAsyncKeyState('A') & 0x8000) position.x--;
+		if (GetAsyncKeyState('S') & 0x8000) position.y--;
+		else if (GetAsyncKeyState('D') & 0x8000) position.x++;
+	}
 
 	D3DXMATRIX S;
 	D3DXMatrixScaling(&S, scale.x, scale.y, scale.z);

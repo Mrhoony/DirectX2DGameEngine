@@ -30,6 +30,7 @@ Execute::Execute()
 	// Rect
 	rect = new Rect(graphics, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 	rect->SetPosition(D3DXVECTOR3(100, 0, 0));
+	rect->SetPlayer(true);
 
 	rect2 = new Rect(graphics, D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
 	rect2->SetPosition(D3DXVECTOR3(-100, 0, 0));
