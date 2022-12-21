@@ -104,6 +104,18 @@ void Rect::Update()
 		if (GetAsyncKeyState('S') & 0x8000) position.y--;
 		else if (GetAsyncKeyState('D') & 0x8000) position.x++;
 	}
+	else
+	{
+		Direction dir = Direction::Right;
+
+		switch (dir)
+		{
+		case Direction::Up: position.y++;			break;
+		case Direction::Right: position.x++;			break;
+		case Direction::Down: position.y--;			break;
+		case Direction::Left: position.y++;			break;
+		}
+	}
 
 	D3DXMATRIX S;
 	D3DXMatrixScaling(&S, scale.x, scale.y, scale.z);
