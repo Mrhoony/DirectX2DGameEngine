@@ -72,13 +72,10 @@ Rect::Rect(Graphics* graphics)
 		D3DXMatrixIdentity(&world);
 
 		D3DXMATRIX S;
-		D3DXMatrixScaling(&S, 100, 100, 1);
+		D3DXMatrixScaling(&S, scale.x, scale.y, scale.z);
 
 		D3DXMATRIX T;
-		D3DXMatrixTranslation(&T, 0, 0, 0);
-
-		D3DXMATRIX R;
-		D3DXMatrixRotationZ(&R, static_cast<float>(D3DXToRadian(45)));
+		D3DXMatrixTranslation(&T, position.x, position.y, position.z);
 
 		world = S * T;
 	}
@@ -100,6 +97,14 @@ Rect::~Rect()
 
 void Rect::Update()
 {
+	D3DXMATRIX S;
+	D3DXMatrixScaling(&S, scale.x, scale.y, scale.z);
+
+	D3DXMATRIX T;
+	D3DXMatrixTranslation(&T, position.x, position.y, position.z);
+
+	world = S * T;
+
 	TRANSFORM_DATA* buffer = gpu_buffer->Map<TRANSFORM_DATA>();
 	{
 		D3DXMatrixTranspose(&buffer->world, &world);

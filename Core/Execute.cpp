@@ -30,10 +30,15 @@ Execute::Execute()
 	// Rect
 	//rect = new Rect(graphics, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 	rect = new Rect(graphics);
+	rect->SetPosition(D3DXVECTOR3(100, 0, 0));
+
+	rect2 = new Rect(graphics);
+	rect2->SetPosition(D3DXVECTOR3(-100, 0, 0));
 }
 
 Execute::~Execute()
 {
+	SAFE_DELETE(rect2);
 	SAFE_DELETE(rect);
 	SAFE_DELETE(pipeline);
 	SAFE_DELETE(camera_buffer);
@@ -53,6 +58,7 @@ void Execute::Update()
 	camera_buffer->Unmap();
 
 	rect->Update();
+	rect2->Update();
 }
 
 void Execute::Render()
@@ -62,6 +68,7 @@ void Execute::Render()
 		pipeline->SetConstantBuffer(0, ShaderScope_VS, camera_buffer);
 
 		rect->Render(pipeline);
+		rect2->Render(pipeline);
 	}
 	graphics->End();
 }
