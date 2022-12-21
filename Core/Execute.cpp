@@ -33,6 +33,7 @@ Execute::Execute()
 
 	rect2 = new Rect(graphics, D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
 	rect2->SetPosition(D3DXVECTOR3(-100, 0, 0));
+	rect2->SetScale(D3DXVECTOR3(100, 300, 1));
 }
 
 Execute::~Execute()
