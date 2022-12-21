@@ -10,11 +10,15 @@ struct PixelInput
 	float4 color : COLOR0;
 };
 
-cbuffer TransformBuffer : register(b0)
+cbuffer CameraBuffer : register(b0)
 {
-	matrix world;
 	matrix view;
 	matrix proj;
+}
+
+cbuffer TransformBuffer : register(b1)
+{
+	matrix world;
 }
 
 // VS
