@@ -95,9 +95,9 @@ Rect::~Rect()
 	SAFE_DELETE(vertex_buffer);
 }
 
-void Rect::Update(std::function<void(D3DXVECTOR3&)>&& function)
+void Rect::Update()
 {
-	function(position);
+	Move();
 
 	D3DXMATRIX S;
 	D3DXMatrixScaling(&S, scale.x, scale.y, scale.z);

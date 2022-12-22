@@ -13,19 +13,22 @@ enum class Direction
 	Left,	// 3
 };
 
-class Rect final
+class Rect
 {
 public:
 	Rect(class Graphics* graphics, const D3DXCOLOR& color);
-	~Rect();
+	virtual ~Rect();
 
 	void SetPosition(const D3DXVECTOR3& position) { this->position = position; }
 	void SetScale(const D3DXVECTOR3& scale) { this->scale = scale; }
 
-	void Update(std::function<void(D3DXVECTOR3&)>&& function);
+	void Update();
 	void Render(D3D11_Pipeline* pipeline);
 
-private:
+protected:
+	virtual void Move() abstract;
+
+protected:
 	// IA
 	D3D11_VertexBuffer* vertex_buffer = nullptr;
 	D3D11_InputLayout* input_layout = nullptr;

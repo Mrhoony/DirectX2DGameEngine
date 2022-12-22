@@ -23,6 +23,6 @@ private:
 
 	D3D11_Pipeline* pipeline = nullptr;
 
-	class Rect* rect = nullptr;
-	class Rect* rect2 = nullptr;
+	class Player* player = nullptr;
+	class Monster* monster = nullptr;
 };

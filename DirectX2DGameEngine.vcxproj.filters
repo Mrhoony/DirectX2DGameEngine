@@ -25,6 +25,8 @@
     <ClInclude Include="Utility\GUID_Generator.h" />
     <ClInclude Include="Core\Object.h" />
     <ClInclude Include="Scene\Rendering\Rect.h" />
+    <ClInclude Include="Scene\Rendering\Player.h" />
+    <ClInclude Include="Scene\Rendering\Monster.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -47,5 +49,7 @@
     <ClCompile Include="Core\D3D11\D3D11_Pipeline.cpp" />
     <ClCompile Include="Utility\GUID_Generator.cpp" />
     <ClCompile Include="Scene\Rendering\Rect.cpp" />
+    <ClCompile Include="Scene\Rendering\Player.cpp" />
+    <ClCompile Include="Scene\Rendering\Monster.cpp" />
   </ItemGroup>
 </Project>
