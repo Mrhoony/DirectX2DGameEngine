@@ -21,9 +21,8 @@ public:
 
 	void SetPosition(const D3DXVECTOR3& position) { this->position = position; }
 	void SetScale(const D3DXVECTOR3& scale) { this->scale = scale; }
-	void SetPlayer(const bool& is_player) { this->is_player = is_player; }
 
-	void Update();
+	void Update(std::function<void(D3DXVECTOR3&)>&& function);
 	void Render(D3D11_Pipeline* pipeline);
 
 private:
@@ -51,6 +50,4 @@ private:
 	D3DXVECTOR3 scale = D3DXVECTOR3(100, 100, 1);
 
 	D3DXMATRIX world;
-
-	bool is_player = false;
 };

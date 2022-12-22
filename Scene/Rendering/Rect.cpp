@@ -95,27 +95,9 @@ Rect::~Rect()
 	SAFE_DELETE(vertex_buffer);
 }
 
-void Rect::Update()
+void Rect::Update(std::function<void(D3DXVECTOR3&)>&& function)
 {
-	if (is_player == true)
-	{
-		if (GetAsyncKeyState('W') & 0x8000) position.y++;
-		else if (GetAsyncKeyState('A') & 0x8000) position.x--;
-		if (GetAsyncKeyState('S') & 0x8000) position.y--;
-		else if (GetAsyncKeyState('D') & 0x8000) position.x++;
-	}
-	else
-	{
-		Direction dir = Direction::Right;
-
-		switch (dir)
-		{
-		case Direction::Up: position.y++;			break;
-		case Direction::Right: position.x++;			break;
-		case Direction::Down: position.y--;			break;
-		case Direction::Left: position.y++;			break;
-		}
-	}
+	function(position);
 
 	D3DXMATRIX S;
 	D3DXMatrixScaling(&S, scale.x, scale.y, scale.z);

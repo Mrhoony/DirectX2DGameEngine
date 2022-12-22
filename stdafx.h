@@ -15,6 +15,9 @@
 #include <iostream>
 #include <sstream>
 #include <unordered_map>
+#include <random>
+#include <chrono>
+#include <functional>
 
 // DirectX
 #include <d3dcompiler.h>
