@@ -12,12 +12,6 @@ Monster::~Monster()
 
 void Monster::Move()
 {
-	static Direction dir = Direction::Right;
-
-	static std::random_device rd;
-	static std::mt19937 mt(rd());
-	static std::uniform_int_distribution<int> rand(0, 3);
-
 	static std::chrono::system_clock::time_point cur_time = std::chrono::system_clock::now();
 	static std::chrono::system_clock::time_point check_time = std::chrono::system_clock::now();
 
@@ -35,7 +29,7 @@ void Monster::Move()
 
 	if (work_time.count() >= 1000.0)
 	{
-		Direction new_dir = static_cast<Direction>(rand(mt));
+		Direction new_dir = static_cast<Direction>(Math::Random(0, 3));
 
 		if (new_dir == dir)
 		{

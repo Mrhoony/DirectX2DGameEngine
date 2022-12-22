@@ -9,4 +9,7 @@ public:
 
 protected:
 	void Move() override;
+	
+private:
+	Direction dir = Direction::Right;
 };

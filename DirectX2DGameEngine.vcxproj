@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Core\D3D11\D3D11_Pipeline.h" />
     <ClInclude Include="Core\Object.h" />
+    <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Scene\Rendering\Monster.h" />
     <ClInclude Include="Scene\Rendering\Player.h" />
     <ClInclude Include="Scene\Rendering\Rect.h" />
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\D3D11\D3D11_Pipeline.cpp" />
+    <ClCompile Include="Math\Math.cpp" />
     <ClCompile Include="Scene\Rendering\Monster.cpp" />
     <ClCompile Include="Scene\Rendering\Player.cpp" />
     <ClCompile Include="Scene\Rendering\Rect.cpp" />

@@ -39,6 +39,9 @@ typedef unsigned int uint;
 #define SAFE_DELETE(p) {if(p) { delete (p); (p) = nullptr; }}
 #define SAFE_DELETE_ARRAY(p) {if(p) { delete[] (p); (p) = nullptr; }}
 
+// Math
+#include "Math/Math.h"
+
 // Utility
 #include "Utility/Geometry_Generator.h"		// 瘤坷皋飘府 积己 包府
 #include "Utility/GUID_Generator.h"			// 磊盔 ID 积己 包府
