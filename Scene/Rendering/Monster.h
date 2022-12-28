@@ -11,5 +11,6 @@ protected:
 	void Move() override;
 	
 private:
+	Stopwatch stopwatch;
 	Direction dir = Direction::Right;
 };

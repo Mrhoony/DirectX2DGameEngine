@@ -4,6 +4,7 @@
 Monster::Monster(Graphics* graphics, const D3DXCOLOR& color)
 	: Rect(graphics, color)
 {
+	stopwatch.Start();
 }
 
 Monster::~Monster()
@@ -27,7 +28,7 @@ void Monster::Move()
 	case Direction::Left: position.y++;			break;
 	}
 
-	if (work_time.count() >= 1000.0)
+	if (stopwatch.GetElapsedTimerSec() >= 3.0f)
 	{
 		Direction new_dir = static_cast<Direction>(Math::Random(0, 3));
 
@@ -42,6 +43,6 @@ void Monster::Move()
 		else
 			dir = new_dir;
 
-		check_time = std::chrono::system_clock::now();
+		stopwatch.Start();
 	}
 }

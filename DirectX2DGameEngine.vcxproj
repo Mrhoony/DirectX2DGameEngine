@@ -25,6 +25,7 @@
     <ClInclude Include="Scene\Rendering\Monster.h" />
     <ClInclude Include="Scene\Rendering\Player.h" />
     <ClInclude Include="Scene\Rendering\Rect.h" />
+    <ClInclude Include="Timer\Timer.h" />
     <ClInclude Include="Utility\GUID_Generator.h" />
     <ClInclude Include="Utility\Geometry_Generator.h" />
     <ClInclude Include="Scene\Camera.h" />
@@ -52,6 +53,7 @@
     <ClCompile Include="Scene\Rendering\Monster.cpp" />
     <ClCompile Include="Scene\Rendering\Player.cpp" />
     <ClCompile Include="Scene\Rendering\Rect.cpp" />
+    <ClCompile Include="Timer\Timer.cpp" />
     <ClCompile Include="Utility\GUID_Generator.cpp" />
     <ClCompile Include="Utility\Geometry_Generator.cpp" />
     <ClCompile Include="Scene\Camera.cpp" />

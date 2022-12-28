@@ -28,6 +28,7 @@
     <ClInclude Include="Scene\Rendering\Player.h" />
     <ClInclude Include="Scene\Rendering\Monster.h" />
     <ClInclude Include="Math\Math.h" />
+    <ClInclude Include="Timer\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -53,5 +54,6 @@
     <ClCompile Include="Scene\Rendering\Player.cpp" />
     <ClCompile Include="Scene\Rendering\Monster.cpp" />
     <ClCompile Include="Math\Math.cpp" />
+    <ClCompile Include="Timer\Timer.cpp" />
   </ItemGroup>
 </Project>
