@@ -45,6 +45,9 @@ typedef unsigned int uint;
 // Timer
 #include "Timer/Timer.h"
 
+// Intersect
+#include "Intersect/Intersect.h"
+
 // Utility
 #include "Utility/Geometry_Generator.h"		// 瘤坷皋飘府 积己 包府
 #include "Utility/GUID_Generator.h"			// 磊盔 ID 积己 包府

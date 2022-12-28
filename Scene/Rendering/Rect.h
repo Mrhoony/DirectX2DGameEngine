@@ -22,6 +22,9 @@ public:
 	void SetPosition(const D3DXVECTOR3& position) { this->position = position; }
 	void SetScale(const D3DXVECTOR3& scale) { this->scale = scale; }
 
+	const D3DXVECTOR3& GetPosition() const { return position; }
+	const D3DXVECTOR3& GetScale() const { return scale; }
+
 	void Update();
 	void Render(D3D11_Pipeline* pipeline);
 

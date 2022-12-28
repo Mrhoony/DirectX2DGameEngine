@@ -59,6 +59,11 @@ void Execute::Update()
 
 	player->Update();
 	monster->Update();
+
+	if (Intersect::IsIntersect(player, monster))
+	{
+		assert(false);
+	}
 }
 
 void Execute::Render()
