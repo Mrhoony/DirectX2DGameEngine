@@ -12,7 +12,7 @@ int APIENTRY WinMain
 {
 	std::cout << GUID_Generator::Generate();
 
-	Window::Create(hInstance, 500, 500);
+	Window::Create(hInstance, 1280, 739);
 	Window::Show();
 
 	Settings::Get().SetWindowHandle(Window::global_handle);

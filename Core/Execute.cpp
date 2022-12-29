@@ -32,13 +32,34 @@ Execute::Execute()
 	player = new Player(graphics, D3DXCOLOR(1.0f, 0.0f, 1.0f, 1.0f));
 	player->SetPosition(D3DXVECTOR3(100, 0, 0));
 
-	monster = new Monster(graphics, D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
-	monster->SetPosition(D3DXVECTOR3(-100, 0, 0));
+	monsters.reserve(10);
+
+	for (int i = 0; i < 10; i++)
+	{
+		D3DXVECTOR3 random_position = D3DXVECTOR3
+		(
+			Math::Random(-500.0f, 500.0f),
+			Math::Random(-300.0f, 300.0f),
+			0
+		);
+
+		D3DXCOLOR random_color = D3DXCOLOR
+		(
+			Math::Random(0.0f, 1.0f),
+			Math::Random(0.0f, 1.0f),
+			Math::Random(0.0f, 1.0f),
+			1.0f
+		);
+
+		monsters.emplace_back(new Monster(graphics, random_color));
+		monsters.back()->SetPosition(random_position);
+		//monsters.back()->SetScale(D3DXVECTOR3(100, 100, 1));
+	}
 }
 
 Execute::~Execute()
 {
-	SAFE_DELETE(monster);
+	for (auto& monster : monsters) SAFE_DELETE(monster);
 	SAFE_DELETE(player);
 	SAFE_DELETE(pipeline);
 	SAFE_DELETE(camera_buffer);
@@ -58,13 +79,18 @@ void Execute::Update()
 	camera_buffer->Unmap();
 
 	player->Update();
-	monster->Update();
-
-	if (Intersect::IsIntersect(player, monster))
+	
+	for (auto& monster : monsters)
 	{
-		player->Event();
-		monster->Event();
+		monster->Update();
+		if (Intersect::IsIntersect(player, monster))
+		{
+			player->Event();
+			monster->Event();
+		}
 	}
+
+	
 }
 
 void Execute::Render()
@@ -74,7 +100,8 @@ void Execute::Render()
 		pipeline->SetConstantBuffer(0, ShaderScope_VS, camera_buffer);
 
 		player->Render(pipeline);
-		monster->Render(pipeline);
+		for (auto& monster : monsters)
+			monster->Render(pipeline);
 	}
 	graphics->End();
 }

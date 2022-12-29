@@ -27,6 +27,9 @@ public:
 	void SetPosition(const D3DXVECTOR3& position) { this->position = position; }
 	void SetScale(const D3DXVECTOR3& scale) { this->scale = scale; }
 
+	void SetActive(const bool& is_active) { this->is_active = is_active; }
+	const bool& IsActive() const { return is_active; }
+
 	void SetIntersectColor(const D3DXCOLOR& color) { this->intersect_color = color; }
 
 	const D3DXVECTOR3& GetPosition() const { return position; }
@@ -66,4 +69,6 @@ protected:
 	D3D11_ConstantBuffer* color_buffer = nullptr;
 	
 	D3DXMATRIX world;
+
+	bool is_active = true;
 };

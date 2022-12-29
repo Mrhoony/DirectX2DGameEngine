@@ -24,5 +24,5 @@ private:
 	D3D11_Pipeline* pipeline = nullptr;
 
 	class Player* player = nullptr;
-	class Monster* monster = nullptr;
+	std::vector<class Monster*> monsters;
 };

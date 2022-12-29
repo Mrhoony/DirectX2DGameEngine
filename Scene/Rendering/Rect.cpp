@@ -126,24 +126,27 @@ void Rect::Update()
 
 void Rect::Render(D3D11_Pipeline* pipeline)
 {
-	D3D11_PipelineState pipeline_state;
-	pipeline_state.input_layout = input_layout;
-	pipeline_state.primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	pipeline_state.vertex_shader = vertex_shader;
-	pipeline_state.pixel_shader = pixel_shader;
-	//pipeline_state.rasterizer_state = rasterizer_state;
-	//pipeline_state.blend_state = blend_state;
-	if (pipeline->Begin(pipeline_state))
+	if (is_active == true)
 	{
-		pipeline->SetVertexBuffer(vertex_buffer);
-		pipeline->SetIndexBuffer(index_buffer);
-		pipeline->SetConstantBuffer(1, ShaderScope_VS, gpu_buffer);
-		pipeline->SetConstantBuffer(2, ShaderScope_PS, color_buffer);
-		pipeline->SetShaderResource(0, ShaderScope_PS, texture);
-		//pipeline->SetSamplerState(0, ShaderScope_PS, sampler_state);
+		D3D11_PipelineState pipeline_state;
+		pipeline_state.input_layout = input_layout;
+		pipeline_state.primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+		pipeline_state.vertex_shader = vertex_shader;
+		pipeline_state.pixel_shader = pixel_shader;
+		//pipeline_state.rasterizer_state = rasterizer_state;
+		//pipeline_state.blend_state = blend_state;
+		if (pipeline->Begin(pipeline_state))
+		{
+			pipeline->SetVertexBuffer(vertex_buffer);
+			pipeline->SetIndexBuffer(index_buffer);
+			pipeline->SetConstantBuffer(1, ShaderScope_VS, gpu_buffer);
+			pipeline->SetConstantBuffer(2, ShaderScope_PS, color_buffer);
+			pipeline->SetShaderResource(0, ShaderScope_PS, texture);
+			//pipeline->SetSamplerState(0, ShaderScope_PS, sampler_state);
 
-		pipeline->DrawIndexed(index_buffer->GetCount(), index_buffer->GetOffset(), vertex_buffer->GetOffset());
+			pipeline->DrawIndexed(index_buffer->GetCount(), index_buffer->GetOffset(), vertex_buffer->GetOffset());
 
-		pipeline->End();
+			pipeline->End();
+		}
 	}
 }

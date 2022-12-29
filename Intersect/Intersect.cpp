@@ -4,6 +4,9 @@
 
 bool Intersect::IsIntersect(Rect* const lhs, Rect* const rhs)
 {
+    if (lhs->IsActive() == false || rhs->IsActive() == false)
+        return false;
+
     D3DXVECTOR3 lhs_min = lhs->GetPosition() - (lhs->GetScale() * 0.5);
     D3DXVECTOR3 lhs_max = lhs->GetPosition() + (lhs->GetScale() * 0.5);
 

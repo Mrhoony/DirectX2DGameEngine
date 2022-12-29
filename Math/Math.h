@@ -11,16 +11,10 @@ public:
 	static constexpr float TO_RAD = PI / 180.0f;
 
 public:
-	template<typename T>
-	static const int Random(const T& min, const T& max);
+	static const int Random(const int& min, const int& max);
+	static const float Random(const float& min, const float& max);
 
 private:
 	static std::random_device rd;
 	static std::mt19937 mt;
 };
-
-template<typename T>
-inline const int Math::Random(const T& min, const T& max)
-{
-	return std::uniform_int_distribution<T>{min, max}(mt);
-}

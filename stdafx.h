@@ -3,7 +3,7 @@
 #define NOMINMAX
 
 #ifdef _DEBUG
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+//#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
 
 // Window

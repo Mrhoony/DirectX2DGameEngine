@@ -13,10 +13,13 @@ Monster::~Monster()
 
 void Monster::Event()
 {
+	is_active = false;
 }
 
 void Monster::Move()
 {
+	if (is_active == false) return;
+
 	static std::chrono::system_clock::time_point cur_time = std::chrono::system_clock::now();
 	static std::chrono::system_clock::time_point check_time = std::chrono::system_clock::now();
 
@@ -80,7 +83,7 @@ void Monster::Move()
 	}
 	} // switch (dir)
 
-	if (stopwatch.GetElapsedTimerSec() >= 10.0f)
+	if (stopwatch.GetElapsedTimerSec() >= 3.0f)
 	{
 		Direction new_dir = static_cast<Direction>(Math::Random(0, 3));
 
