@@ -26,13 +26,61 @@ void Monster::Move()
 
 	switch (dir)
 	{
-	case Direction::Up: position.y++;			break;
-	case Direction::Right: position.x++;		break;
-	case Direction::Down: position.y--;			break;
-	case Direction::Left: position.y++;			break;
-	}
+	case Direction::Up:
+	{
+		float height = Settings::Get().GetHeight() / 2;
 
-	if (stopwatch.GetElapsedTimerSec() >= 3.0f)
+		if (++position.y >= height - scale.y / 2)
+		{
+			position.y--;
+			dir = Direction::Down;
+			stopwatch.Start();
+		}
+
+		break;
+	}
+	case Direction::Right:
+	{
+		float width = Settings::Get().GetWidth() / 2;
+
+		if (++position.x >= width - scale.x / 2)
+		{
+			position.x--;
+			dir = Direction::Left;
+			stopwatch.Start();
+		}
+
+		break;
+	}
+	case Direction::Down:
+	{
+		float height = Settings::Get().GetHeight() / 2;
+
+		if (--position.y <= -height + scale.y / 2)
+		{
+			position.y++;
+			dir = Direction::Up;
+			stopwatch.Start();
+		}
+
+		break;
+	}
+	case Direction::Left:
+	{
+		float width = Settings::Get().GetWidth() / 2;
+
+		if (--position.x <= -width + scale.x / 2)
+		{
+			position.x++;
+			dir = Direction::Right;
+			stopwatch.Start();
+		}
+
+		break;
+	}
+	} // switch (dir)
+
+	if (stopwatch.GetElapsedTimerSec() >= 10.0f)
 	{
 		Direction new_dir = static_cast<Direction>(Math::Random(0, 3));
 
