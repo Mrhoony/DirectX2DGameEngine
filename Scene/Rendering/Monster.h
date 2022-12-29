@@ -7,6 +7,8 @@ public:
 	Monster(class Graphics* graphics, const D3DXCOLOR& color);
 	~Monster();
 
+	void Event() override;
+
 protected:
 	void Move() override;
 	

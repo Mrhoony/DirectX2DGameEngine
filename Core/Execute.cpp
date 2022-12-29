@@ -29,7 +29,7 @@ Execute::Execute()
 	}
 
 	// Rect
-	player = new Player(graphics, D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+	player = new Player(graphics, D3DXCOLOR(1.0f, 0.0f, 1.0f, 1.0f));
 	player->SetPosition(D3DXVECTOR3(100, 0, 0));
 
 	monster = new Monster(graphics, D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
@@ -62,7 +62,8 @@ void Execute::Update()
 
 	if (Intersect::IsIntersect(player, monster))
 	{
-		assert(false);
+		player->Event();
+		monster->Event();
 	}
 }
 

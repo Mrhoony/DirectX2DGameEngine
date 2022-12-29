@@ -8,6 +8,9 @@ public:
 	Player(class Graphics* graphics, const D3DXCOLOR& color);
 	~Player();
 
+	void Event() override;
+	void Update() override;
+
 protected:
 	void Move() override;
 };

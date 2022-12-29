@@ -21,6 +21,11 @@ cbuffer TransformBuffer : register(b1)
 	matrix world;
 }
 
+cbuffer ColorBuffer : register(b2)
+{
+	float4 color;
+}
+
 // VS
 PixelInput VS(VertexInput input)
 {
@@ -37,5 +42,5 @@ PixelInput VS(VertexInput input)
 
 float4 PS(PixelInput input) : SV_Target
 {
-	return input.color;
+	return input.color * color;
 }

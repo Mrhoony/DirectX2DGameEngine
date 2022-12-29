@@ -11,6 +11,10 @@ Monster::~Monster()
 {
 }
 
+void Monster::Event()
+{
+}
+
 void Monster::Move()
 {
 	static std::chrono::system_clock::time_point cur_time = std::chrono::system_clock::now();

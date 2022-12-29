@@ -41,6 +41,9 @@ Rect::Rect(Graphics* graphics, const D3DXCOLOR& color)
 	{
 		gpu_buffer = new D3D11_ConstantBuffer(graphics);
 		gpu_buffer->Create<TRANSFORM_DATA>();
+
+		color_buffer = new D3D11_ConstantBuffer(graphics);
+		color_buffer->Create<COLOR_DATA>();
 	}
 
 	// Create Rasterizer State
@@ -87,6 +90,7 @@ Rect::~Rect()
 	//SAFE_DELETE(sampler_state);
 	SAFE_DELETE(texture);
 	//SAFE_DELETE(rasterizer_state);
+	SAFE_DELETE(color_buffer);
 	SAFE_DELETE(gpu_buffer);
 	SAFE_DELETE(pixel_shader);
 	SAFE_DELETE(input_layout);
@@ -112,6 +116,12 @@ void Rect::Update()
 		D3DXMatrixTranspose(&buffer->world, &world);
 	}
 	gpu_buffer->Unmap();
+
+	COLOR_DATA* color_data = color_buffer->Map<COLOR_DATA>();
+	{
+		color_data->color = intersect_color;
+	}
+	color_buffer->Unmap();
 }
 
 void Rect::Render(D3D11_Pipeline* pipeline)
@@ -128,6 +138,7 @@ void Rect::Render(D3D11_Pipeline* pipeline)
 		pipeline->SetVertexBuffer(vertex_buffer);
 		pipeline->SetIndexBuffer(index_buffer);
 		pipeline->SetConstantBuffer(1, ShaderScope_VS, gpu_buffer);
+		pipeline->SetConstantBuffer(2, ShaderScope_PS, color_buffer);
 		pipeline->SetShaderResource(0, ShaderScope_PS, texture);
 		//pipeline->SetSamplerState(0, ShaderScope_PS, sampler_state);
 
