@@ -1,2 +1,5 @@
 ﻿  Execute.cpp
+  Camera.cpp
+  Monster.cpp
+  Generating Code...
   DirectX2DGameEngine.vcxproj -> D:\Kwon's products\C++\DirectX2DGameEngine\x64\Debug\DirectX2DGameEngine.exe

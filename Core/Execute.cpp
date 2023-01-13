@@ -69,17 +69,11 @@ Execute::~Execute()
 
 void Execute::Update()
 {
+	player->Update();
+
+	camera->SetPosition(player->GetPosition());
 	camera->Update();
 
-	CAMERA_DATA* buffer = camera_buffer->Map<CAMERA_DATA>();
-	{
-		D3DXMatrixTranspose(&buffer->view, &camera->GetViewMatrix());
-		D3DXMatrixTranspose(&buffer->projection, &camera->GetProjectionMatrix());
-	}
-	camera_buffer->Unmap();
-
-	player->Update();
-	
 	for (auto& monster : monsters)
 	{
 		monster->Update();
@@ -90,7 +84,12 @@ void Execute::Update()
 		}
 	}
 
-	
+	CAMERA_DATA* buffer = camera_buffer->Map<CAMERA_DATA>();
+	{
+		D3DXMatrixTranspose(&buffer->view, &camera->GetViewMatrix());
+		D3DXMatrixTranspose(&buffer->projection, &camera->GetProjectionMatrix());
+	}
+	camera_buffer->Unmap();
 }
 
 void Execute::Render()

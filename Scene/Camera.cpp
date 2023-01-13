@@ -18,11 +18,10 @@ void Camera::Update()
 
 void Camera::UpdateViewMatrix()
 {
-	D3DXVECTOR3 eye(0, 0, 0);
-	D3DXVECTOR3 at(0, 0, 1);
+	D3DXVECTOR3 at = D3DXVECTOR3(0, 0, 1) + position;
 	D3DXVECTOR3 up(0, 1, 0);
 
-	D3DXMatrixLookAtLH(&view, &eye, &at, &up);
+	D3DXMatrixLookAtLH(&view, &position, &at, &up);
 }
 
 void Camera::UpdateProjectionMatrix()

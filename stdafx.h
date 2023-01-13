@@ -18,6 +18,7 @@
 #include <random>
 #include <chrono>
 #include <functional>
+#include <memory>
 
 // DirectX
 #include <d3dcompiler.h>

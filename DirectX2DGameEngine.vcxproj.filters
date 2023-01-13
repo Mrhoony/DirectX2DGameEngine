@@ -30,6 +30,8 @@
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Timer\Timer.h" />
     <ClInclude Include="Intersect\Intersect.h" />
+    <ClInclude Include="Scene\Actor.h" />
+    <ClInclude Include="Scene\Components\IComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -57,5 +59,7 @@
     <ClCompile Include="Math\Math.cpp" />
     <ClCompile Include="Timer\Timer.cpp" />
     <ClCompile Include="Intersect\Intersect.cpp" />
+    <ClCompile Include="Scene\Actor.cpp" />
+    <ClCompile Include="Scene\Components\IComponent.cpp" />
   </ItemGroup>
 </Project>
