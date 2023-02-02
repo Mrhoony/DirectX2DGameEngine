@@ -16,13 +16,10 @@ public:
 	void Render();
 
 private:
-	class Graphics* graphics = nullptr;
-	
+	D3D11_Pipeline* pipeline = nullptr;
+
 	class Camera* camera = nullptr;
 	D3D11_ConstantBuffer* camera_buffer = nullptr;
 
-	D3D11_Pipeline* pipeline = nullptr;
-
-	class Player* player = nullptr;
-	std::vector<class Monster*> monsters;
+	std::vector<std::shared_ptr<class Actor>> actors;
 };

@@ -5,6 +5,7 @@ enum class ComponentType : uint
 	Unknown,
 	Camera,
 	Transform,
+	MeshRenderer,
 };
 
 class IComponent
@@ -16,6 +17,10 @@ public:
 public:
 	IComponent(class Actor* const actor, class TransformComponent* const transform);
 	virtual ~IComponent();
+
+	virtual void Initialize() abstract;
+	virtual void Update() abstract;
+	virtual void Destroy() abstract;
 
 	class Actor* GetActor() const { return actor; }
 	void SetActor(class Actor* const actor) { this->actor = actor; }
@@ -29,7 +34,7 @@ public:
 	bool IsEnabled() const { return is_enabled; }
 	void SetEnabled(const bool& is_enabled) { this->is_enabled = is_enabled; }
 
-private:
+protected:
 	class Actor* actor = nullptr;
 	class TransformComponent* transform = nullptr;
 	bool is_enabled = true;
