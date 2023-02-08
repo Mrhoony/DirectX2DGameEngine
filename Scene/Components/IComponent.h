@@ -6,6 +6,10 @@ enum class ComponentType : uint
 	Camera,
 	Transform,
 	MeshRenderer,
+	MoveScript,
+	AIScript,
+
+	Max
 };
 
 class IComponent

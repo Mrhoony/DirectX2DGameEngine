@@ -91,7 +91,7 @@ const D3DXVECTOR3 TransformComponent::GetRotation()
     return D3DXVECTOR3
         (
             atan2(rotation._31, rotation._33),
-            atan2(-rotation._32, sqrt(pow(rotation._12, 2) + pow(rotation._22, 2))),
+            static_cast<float>(atan2(-rotation._32, sqrt(pow(rotation._12, 2) + pow(rotation._22, 2)))),
             atan2(rotation._12, rotation._22)
         );
 }

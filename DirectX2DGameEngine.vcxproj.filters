@@ -24,9 +24,6 @@
     <ClInclude Include="Core\D3D11\D3D11_Pipeline.h" />
     <ClInclude Include="Utility\GUID_Generator.h" />
     <ClInclude Include="Core\Object.h" />
-    <ClInclude Include="Scene\Rendering\Rect.h" />
-    <ClInclude Include="Scene\Rendering\Player.h" />
-    <ClInclude Include="Scene\Rendering\Monster.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Timer\Timer.h" />
     <ClInclude Include="Intersect\Intersect.h" />
@@ -34,6 +31,8 @@
     <ClInclude Include="Scene\Components\IComponent.h" />
     <ClInclude Include="Scene\Components\TransformComponent.h" />
     <ClInclude Include="Scene\Components\MeshRendererComponent.h" />
+    <ClInclude Include="Scene\Components\MoveScriptComponent.h" />
+    <ClInclude Include="Scene\Components\AIScriptComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -55,9 +54,6 @@
     <ClCompile Include="Utility\Geometry_Generator.cpp" />
     <ClCompile Include="Core\D3D11\D3D11_Pipeline.cpp" />
     <ClCompile Include="Utility\GUID_Generator.cpp" />
-    <ClCompile Include="Scene\Rendering\Rect.cpp" />
-    <ClCompile Include="Scene\Rendering\Player.cpp" />
-    <ClCompile Include="Scene\Rendering\Monster.cpp" />
     <ClCompile Include="Math\Math.cpp" />
     <ClCompile Include="Timer\Timer.cpp" />
     <ClCompile Include="Intersect\Intersect.cpp" />
@@ -65,5 +61,7 @@
     <ClCompile Include="Scene\Components\IComponent.cpp" />
     <ClCompile Include="Scene\Components\TransformComponent.cpp" />
     <ClCompile Include="Scene\Components\MeshRendererComponent.cpp" />
+    <ClCompile Include="Scene\Components\MoveScriptComponent.cpp" />
+    <ClCompile Include="Scene\Components\AIScriptComponent.cpp" />
   </ItemGroup>
 </Project>

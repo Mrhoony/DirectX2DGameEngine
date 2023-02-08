@@ -27,36 +27,25 @@ void MeshRendererComponent::SetStandardMesh()
 	Geometry_Generator::CreateQuad(geometry, D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 
 	// Vertex Buffer
-	{
-		vertex_buffer = std::make_shared<D3D11_VertexBuffer>(&Graphics::Get());
-		vertex_buffer->Create(geometry.GetVertices());
-	}
+	vertex_buffer = std::make_shared<D3D11_VertexBuffer>(&Graphics::Get());
+	vertex_buffer->Create(geometry.GetVertices());
 
 	// Index Buffer
-	{
-		index_buffer = std::make_shared<D3D11_IndexBuffer>(&Graphics::Get());
-		index_buffer->Create(geometry.GetIndices());
-	}
+	index_buffer = std::make_shared<D3D11_IndexBuffer>(&Graphics::Get());
+	index_buffer->Create(geometry.GetIndices());
 }
 
 void MeshRendererComponent::SetStandardMaterial()
 {
 	// Vertex Shader
-	{
-
-		vertex_shader = std::make_shared<D3D11_Shader>(&Graphics::Get());
-		vertex_shader->Create(ShaderScope_VS, "Assets/Shaders/Color.hlsl");
-	}
+	vertex_shader = std::make_shared<D3D11_Shader>(&Graphics::Get());
+	vertex_shader->Create(ShaderScope_VS, "Assets/Shaders/Color.hlsl");
 
 	// Pixel Shader
-	{
-		pixel_shader = std::make_shared<D3D11_Shader>(&Graphics::Get());
-		pixel_shader->Create(ShaderScope_PS, "Assets/Shaders/Color.hlsl");
-	}
+	pixel_shader = std::make_shared<D3D11_Shader>(&Graphics::Get());
+	pixel_shader->Create(ShaderScope_PS, "Assets/Shaders/Color.hlsl");
 
 	// InputLayout
-	{
-		input_layout = std::make_shared<D3D11_InputLayout>(&Graphics::Get());
-		input_layout->Create(D3D11_VertexColor::descs, D3D11_VertexColor::count, vertex_shader->GetShaderBlob());
-	}
+	input_layout = std::make_shared<D3D11_InputLayout>(&Graphics::Get());
+	input_layout->Create(D3D11_VertexColor::descs, D3D11_VertexColor::count, vertex_shader->GetShaderBlob());
 }

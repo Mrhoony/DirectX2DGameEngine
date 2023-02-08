@@ -42,5 +42,5 @@ PixelInput VS(VertexInput input)
 
 float4 PS(PixelInput input) : SV_Target
 {
-	return input.color * color;
+	return input.color;
 }

@@ -70,8 +70,8 @@ public:
 
 private:
 	D3DXVECTOR3 local_scale = D3DXVECTOR3(1, 1, 1);
-	D3DXVECTOR3 local_rotation = D3DXVECTOR3(1, 1, 1);
-	D3DXVECTOR3 local_position = D3DXVECTOR3(1, 1, 1);
+	D3DXVECTOR3 local_rotation = D3DXVECTOR3(0, 0, 0);
+	D3DXVECTOR3 local_position = D3DXVECTOR3(0, 0, 0);
 
 	D3DXMATRIX local;
 	D3DXMATRIX world;

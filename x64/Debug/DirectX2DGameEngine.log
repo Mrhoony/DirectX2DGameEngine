@@ -1,10 +1,34 @@
-﻿  Execute.cpp
+﻿  stdafx.cpp
+  D3D11_Pipeline.cpp
+  D3D11_IndexBuffer.cpp
+  D3D11_InputLayout.cpp
+  D3D11_VertexBuffer.cpp
+  D3D11_BlendState.cpp
+  D3D11_RasterizerState.cpp
+  D3D11_Viewport.cpp
+  D3D11_ConstantBuffer.cpp
+  D3D11_SamplerState.cpp
+  D3D11_Shader.cpp
+  D3D11_Texture.cpp
+  D3D11_Vertex.cpp
+  Execute.cpp
+  Graphics.cpp
+D:\Kwon's products\C++\DirectX2DGameEngine\Core\Graphics.cpp(54,2): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
+  Intersect.cpp
+  Math.cpp
+  Program.cpp
+D:\Kwon's products\C++\DirectX2DGameEngine\Core\Window.h(84,51): warning C4390: ';': empty controlled statement found; is this the intent?
   Actor.cpp
+  AIScriptComponent.cpp
   CameraComponent.cpp
-D:\Kwon's products\C++\DirectX2DGameEngine\Scene\Components\CameraComponent.cpp(38,14): warning C4834: discarding return value of function with 'nodiscard' attribute
+  Generating Code...
+  Compiling...
   IComponent.cpp
   MeshRendererComponent.cpp
+  MoveScriptComponent.cpp
   TransformComponent.cpp
-D:\Kwon's products\C++\DirectX2DGameEngine\Scene\Components\TransformComponent.cpp(94,18): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
+  Timer.cpp
+  GUID_Generator.cpp
+  Geometry_Generator.cpp
   Generating Code...
   DirectX2DGameEngine.vcxproj -> D:\Kwon's products\C++\DirectX2DGameEngine\x64\Debug\DirectX2DGameEngine.exe

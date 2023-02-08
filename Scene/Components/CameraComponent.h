@@ -34,7 +34,6 @@ private:
 	D3DXMATRIX view;
 	D3DXMATRIX projection;
 
-	//D3DXVECTOR3 position = D3DXVECTOR3(0, 0, 0);
 	std::shared_ptr<class D3D11_ConstantBuffer> gpu_buffer = nullptr;
 };
 

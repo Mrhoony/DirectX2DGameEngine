@@ -5,11 +5,6 @@
 CameraComponent::CameraComponent(Actor* const actor, TransformComponent* const transform)
 	: IComponent(actor, transform)
 {
-	D3DXMatrixIdentity(&view);
-	D3DXMatrixIdentity(&projection);
-
-	UpdateViewMatrix();
-	UpdateProjectionMatrix();
 }
 
 void CameraComponent::Initialize()
@@ -35,7 +30,7 @@ void CameraComponent::UpdateConstantBuffer()
 {
 	if (gpu_buffer == nullptr)
 	{
-		gpu_buffer == std::make_shared<D3D11_ConstantBuffer>(&Graphics::Get());
+		gpu_buffer = std::make_shared<D3D11_ConstantBuffer>(&Graphics::Get());
 		gpu_buffer->Create<CAMERA_DATA>();
 	}
 

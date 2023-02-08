@@ -75,6 +75,8 @@ inline const std::shared_ptr<T> Actor::AddComponent()
 
 	components.emplace_back(std::make_shared<T>(this, transform.get()));
 	std::shared_ptr<T> new_component = std::static_pointer_cast<T>(components.back());
+	new_component->Initialize();
+	new_component->SetComponentType(type);
 
 	if constexpr (std::is_same<T, class TransformComponent>::value == true)
 		transform = new_component;
