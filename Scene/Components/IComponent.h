@@ -16,7 +16,7 @@ public:
 
 public:
 	IComponent(class Actor* const actor, class TransformComponent* const transform);
-	virtual ~IComponent();
+	virtual ~IComponent() = default;
 
 	virtual void Initialize() abstract;
 	virtual void Update() abstract;

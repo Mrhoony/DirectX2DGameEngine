@@ -6,6 +6,8 @@
 //#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
 
+#pragma warning(disable : 4506)
+
 // Window
 #include <Windows.h>
 #include <assert.h>

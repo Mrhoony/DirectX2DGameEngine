@@ -1,11 +1,5 @@
 #pragma once
 
-struct CAMERA_DATA
-{
-	D3DXMATRIX view;
-	D3DXMATRIX projection;
-};
-
 class Execute
 {
 public:
@@ -16,10 +10,7 @@ public:
 	void Render();
 
 private:
-	D3D11_Pipeline* pipeline = nullptr;
-
-	class Camera* camera = nullptr;
-	D3D11_ConstantBuffer* camera_buffer = nullptr;
+	std::shared_ptr<class D3D11_Pipeline> pipeline = nullptr;
 
 	std::vector<std::shared_ptr<class Actor>> actors;
 };

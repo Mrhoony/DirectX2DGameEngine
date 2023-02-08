@@ -89,9 +89,9 @@ inline const std::shared_ptr<T> Actor::GetComponent()
 
 	ComponentType type = IComponent::DeduceComponentType<T>();
 
-	if (const auto & component : components)
+	for (const auto& component : components)
 	{
-		if (component->GetComponentType() == true)
+		if (component->GetComponentType() == type)
 			return std::static_pointer_cast<T>(component);
 	}
 
@@ -105,9 +105,9 @@ inline T* Actor::GetComponent_Raw()
 
 	ComponentType type = IComponent::DeduceComponentType<T>();
 
-	if (const auto & component : components)
+	for (const auto & component : components)
 	{
-		if (component->GetComponentType() == true)
+		if (component->GetComponentType() == type)
 			return std::static_pointer_cast<T>(component).get();
 	}
 
@@ -122,9 +122,9 @@ inline std::vector<std::shared_ptr<T>> Actor::GetComponents()
 	ComponentType type = IComponent::DeduceComponentType<T>();
 
 	std::vector<std::shared_ptr<T>> temp_components;
-	if (const auto & component : components)
+	for (const auto & component : components)
 	{
-		if (component->GetComponentType() != true)
+		if (component->GetComponentType() != type)
 			continue;
 		
 		temp_components.emplace_back(std::static_pointer_cast<T>(component));
@@ -154,7 +154,7 @@ inline void Actor::RemoveComponent()
 
 	ComponentType type = IComponent::DeduceComponentType<T>();
 
-	for (auto iter = components.begin() : iter != components.end(); )
+	for (auto iter = components.begin(); iter != components.end();)
 	{
 		std::shared_ptr<T> component = *iter;
 

@@ -1,5 +1,10 @@
 ﻿  Execute.cpp
-  Camera.cpp
-  Monster.cpp
+  Actor.cpp
+  CameraComponent.cpp
+D:\Kwon's products\C++\DirectX2DGameEngine\Scene\Components\CameraComponent.cpp(38,14): warning C4834: discarding return value of function with 'nodiscard' attribute
+  IComponent.cpp
+  MeshRendererComponent.cpp
+  TransformComponent.cpp
+D:\Kwon's products\C++\DirectX2DGameEngine\Scene\Components\TransformComponent.cpp(94,18): warning C4244: 'argument': conversion from 'double' to 'FLOAT', possible loss of data
   Generating Code...
   DirectX2DGameEngine.vcxproj -> D:\Kwon's products\C++\DirectX2DGameEngine\x64\Debug\DirectX2DGameEngine.exe

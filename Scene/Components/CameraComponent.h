@@ -1,6 +1,12 @@
 #pragma once
 #include "IComponent.h"
 
+struct CAMERA_DATA
+{
+	D3DXMATRIX view;
+	D3DXMATRIX projection;
+};
+
 class CameraComponent final : public IComponent
 {
 public:
@@ -17,10 +23,8 @@ public:
 	const D3DXMATRIX& GetViewMatrix() const { return view; }
 	const D3DXMATRIX& GetProjectionMatrix() const { return projection; }
 
-	//const D3DXVECTOR3& GetPosition() { return position; }
-	//void SetPosition(const D3DXVECTOR3& position) { this->position = position; }
-
-	void Update();
+	std::shared_ptr<class D3D11_ConstantBuffer> GetConstantBuffer() const { return gpu_buffer; }
+	void UpdateConstantBuffer();
 
 private:
 	void UpdateViewMatrix();
@@ -31,5 +35,6 @@ private:
 	D3DXMATRIX projection;
 
 	//D3DXVECTOR3 position = D3DXVECTOR3(0, 0, 0);
+	std::shared_ptr<class D3D11_ConstantBuffer> gpu_buffer = nullptr;
 };
 

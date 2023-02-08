@@ -104,7 +104,9 @@ void TransformComponent::SetRotation(const D3DXVECTOR3& world_rotation)
     if (HasParent() == true)
     {
         D3DXMATRIX inverse;
-        D3DXMatrixInverse(&inverse, nullptr, &GetWorldRotationMatrix());
+        D3DXMATRIX my_world_rotation = GetWorldRotationMatrix();
+
+        D3DXMatrixInverse(&inverse, nullptr, &my_world_rotation);
 
         D3DXVECTOR3 rotation;
         D3DXVec3TransformNormal(&rotation, &world_rotation, &inverse);

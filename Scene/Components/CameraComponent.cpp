@@ -31,13 +31,29 @@ void CameraComponent::Destroy()
 {
 }
 
+void CameraComponent::UpdateConstantBuffer()
+{
+	if (gpu_buffer == nullptr)
+	{
+		gpu_buffer == std::make_shared<D3D11_ConstantBuffer>(&Graphics::Get());
+		gpu_buffer->Create<CAMERA_DATA>();
+	}
+
+	CAMERA_DATA* gpu_data = gpu_buffer->Map<CAMERA_DATA>();
+	{
+		D3DXMatrixTranspose(&gpu_data->view, &view);
+		D3DXMatrixTranspose(&gpu_data->projection, &projection);
+	}
+	gpu_buffer->Unmap();
+}
+
 void CameraComponent::UpdateViewMatrix()
 {
 	D3DXVECTOR3 position = transform->GetPosition();
 	D3DXVECTOR3 forward = transform->GetForward() + position;
 	D3DXVECTOR3 up = transform->GetUp();
 
-	D3DXMatrixLookAtLH(&view, &transform, &forward, &up);
+	D3DXMatrixLookAtLH(&view, &position, &forward, &up);
 }
 
 void CameraComponent::UpdateProjectionMatrix()
