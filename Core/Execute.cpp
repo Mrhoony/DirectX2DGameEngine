@@ -8,6 +8,7 @@
 #include "Scene/Components/MeshRendererComponent.h"
 #include "Scene/Components/MoveScriptComponent.h"
 #include "Scene/Components/AIScriptComponent.h"
+#include "Scene/Components/ChaseAIScriptComponent.h"
 
 Execute::Execute()
 {
@@ -37,10 +38,12 @@ Execute::Execute()
 	// Monster Actor
 	std::shared_ptr<Actor> monster = CreateActor();
 	monster->AddComponent<MeshRendererComponent>();
-	monster->AddComponent<AIScriptComponent>();
+	//monster->AddComponent<AIScriptComponent>();
+	monster->AddComponent<ChaseAIScriptComponent>();
+	monster->GetComponent<ChaseAIScriptComponent>()->SetTarget(player);
 	monster->GetComponent<TransformComponent>()->SetScale(D3DXVECTOR3(100.f, 100.f, 1.f));
 	monster->GetComponent<TransformComponent>()->SetPosition(D3DXVECTOR3(-100.f, 0.f, 0.f));
-	monster->SetName("Player");
+	monster->SetName("Monster");
 
 	//=======================================================
 	// [Pipeline]

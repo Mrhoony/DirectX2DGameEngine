@@ -6,6 +6,7 @@
 #include "MeshRendererComponent.h"
 #include "MoveScriptComponent.h"
 #include "AIScriptComponent.h"
+#include "ChaseAIScriptComponent.h"
 
 IComponent::IComponent(Actor* const actor, TransformComponent* const transform)
 	: actor(actor)
@@ -27,3 +28,4 @@ REGISTER_COMPONENT_TYPE(CameraComponent, ComponentType::Camera)
 REGISTER_COMPONENT_TYPE(MeshRendererComponent, ComponentType::MeshRenderer)
 REGISTER_COMPONENT_TYPE(MoveScriptComponent, ComponentType::MoveScript)
 REGISTER_COMPONENT_TYPE(AIScriptComponent, ComponentType::AIScript)
+REGISTER_COMPONENT_TYPE(ChaseAIScriptComponent, ComponentType::ChaseAIScript)
