@@ -10,6 +10,7 @@ ChaseAIScriptComponent::ChaseAIScriptComponent(Actor* const actor, TransformComp
 
 void ChaseAIScriptComponent::Initialize()
 {
+	Timer.Start();
 }
 
 void ChaseAIScriptComponent::Update()
@@ -33,12 +34,14 @@ void ChaseAIScriptComponent::Update()
 	switch (current_state)
 	{
 	case Chase:
-		move_position = my_position + dir;
+		move_position = my_position + (dir * Timer.GetElapsedTimerSec() * speed);
 		break;
 	case Avoid:
-		move_position = my_position - dir;
+		move_position = my_position - (dir * Timer.GetElapsedTimerSec() * speed);
 		break;
 	}
+
+	Timer.Start();
 
 	transform->SetPosition(move_position);
 }

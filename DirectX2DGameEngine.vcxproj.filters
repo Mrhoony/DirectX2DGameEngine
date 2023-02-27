@@ -5,7 +5,7 @@
     <ClInclude Include="Core\Window.h" />
     <ClInclude Include="Core\Graphics.h" />
     <ClInclude Include="Core\Settings.h" />
-    <ClInclude Include="Core\Execute.h" />
+    <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Core\D3D11\Vertex\D3D11_Vertex.h" />
     <ClInclude Include="Core\D3D11\Vertex\D3D11_Geometry.h" />
     <ClInclude Include="Core\D3D11\Vertex\D3D11_Geometry.inl" />
@@ -34,12 +34,13 @@
     <ClInclude Include="Scene\Components\MoveScriptComponent.h" />
     <ClInclude Include="Scene\Components\AIScriptComponent.h" />
     <ClInclude Include="Scene\Components\ChaseAIScriptComponent.h" />
+    <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Core\Graphics.cpp" />
     <ClCompile Include="Program.cpp" />
-    <ClCompile Include="Core\Execute.cpp" />
+    <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Core\D3D11\Vertex\D3D11_Vertex.cpp" />
     <ClCompile Include="Core\D3D11\InputAssembler\D3D11_VertexBuffer.cpp" />
     <ClCompile Include="Core\D3D11\InputAssembler\D3D11_IndexBuffer.cpp" />
@@ -65,5 +66,6 @@
     <ClCompile Include="Scene\Components\MoveScriptComponent.cpp" />
     <ClCompile Include="Scene\Components\AIScriptComponent.cpp" />
     <ClCompile Include="Scene\Components\ChaseAIScriptComponent.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
 </Project>

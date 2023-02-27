@@ -25,5 +25,7 @@ public:
 
 private:
 	std::weak_ptr<const class Actor> target;
-	enum State  current_state = State::Chase;
+	enum State current_state = State::Chase;
+	Stopwatch Timer;
+	float speed = 50.f;
 };
